@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phúc Khánh | Website Cá Nhân & Boeing 787-9 Aerospace Explorer</title>
+  
+  <!-- SEO & Meta Tags -->
+  <meta name="description" content="Website cá nhân của Phúc Khánh (THCS Linh Đàm) - Đam mê Công nghệ Kỹ thuật Hàng không & Lập trình Web. Khám phá dự án B787-9 Aircraft Parts Explorer, mô phỏng 3 cụm càng đáp 60 FPS, buồng lái ảo HUD và đố vui cấp chứng chỉ.">
+  <meta name="author" content="Phúc Khánh">
+  
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css?v=20260902_fresh">
+</head>
+<body>
+
+  <!-- Background Particle & Canvas Animation -->
+  <canvas id="skyCanvas" class="sky-canvas"></canvas>
+
+  <!-- Interactive Mouse Glow -->
+  <div class="mouse-glow" id="mouseGlow"></div>
+
+  <!-- Top Telemetry Announcement Bar -->
+  <div class="telemetry-bar">
+    <div class="container telemetry-inner">
+      <div class="telemetry-item">
+        <span class="pulse-dot"></span>
+        <span class="mono-text">B787-9 DREAMLINER SYSTEM: ONLINE</span>
+      </div>
+      <div class="telemetry-item hide-mobile">
+        <i class="fa-solid fa-wind text-cyan"></i>
+        <span>VẬT LIỆU COMPOSITE: 50%+</span>
+      </div>
+      <div class="telemetry-item hide-mobile">
+        <i class="fa-solid fa-gauge-high text-gold"></i>
+        <span>TIẾT KIỆM NHIÊN LIỆU: 20%</span>
+      </div>
+      <div class="telemetry-actions">
+        <button id="audioToggleBtn" class="telemetry-btn" title="Bật/Tắt âm thanh buồng lái">
+          <i class="fa-solid fa-volume-high" id="audioIcon"></i>
+          <span class="hide-mobile">Âm thanh buồng lái</span>
+        </button>
+        <button id="quickSimbaBtn" class="telemetry-btn highlight" title="Sao chép nhanh bài nộp Simba">
+          <i class="fa-solid fa-copy"></i>
+          <span>Nộp Simba Nhanh</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header id="header">
+    <div class="container header-container">
+      <a href="#home" class="logo">
+        <div class="logo-icon-wrap">
+          <i class="fa-solid fa-plane-departure text-cyan"></i>
+        </div>
+        <div>
+          <span class="logo-name text-gradient">PHÚC KHÁNH</span>
+          <span class="logo-tag">THCS LINH ĐÀM &bull; AEROSPACE &bull; WEB DEV</span>
+        </div>
+      </a>
+      
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle Menu">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+      
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" class="active"><i class="fa-solid fa-house"></i> Trang Chủ</a>
+        <a href="#about"><i class="fa-solid fa-user-astronaut"></i> Em Là Ai</a>
+        <a href="#gear-simulation"><i class="fa-solid fa-gears"></i> Cơ Cấu Càng 60 FPS</a>
+        <a href="#hotspots"><i class="fa-solid fa-plane"></i> 8 Điểm Vàng B787</a>
+        <a href="#hud-simulator"><i class="fa-solid fa-gamepad"></i> Buồng Lái HUD</a>
+        <a href="#quiz"><i class="fa-solid fa-graduation-cap"></i> Đố Vui & Chứng Chỉ</a>
+        <a href="#contact"><i class="fa-solid fa-envelope"></i> Liên Hệ</a>
+      </nav>
+    </div>
+  </header>
+        <a href="#hud-simulator"><i class="fa-solid fa-sliders"></i> Buồng Lái HUD</a>
+        <a href="#routes"><i class="fa-solid fa-route"></i> Đường Bay VNA</a>
+        <a href="#quiz"><i class="fa-solid fa-award"></i> Đố Vui & Chứng Chỉ</a>
+        <a href="#contact"><i class="fa-solid fa-paper-plane"></i> Liên Hệ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-wrapper">
+        
+        <div class="hero-content">
+          <div class="badge-tag">
+            <i class="fa-solid fa-satellite-dish animate-spin-slow"></i>
+            <span>PORTFOLIO CÁ NHÂN &bull; SIMBA ASSIGNMENT</span>
+          </div>
+          
+          <span class="hero-subtitle">Xin chào, mình là</span>
+          
+          <h1 class="hero-title">
+            Phúc <span class="text-gradient">Khánh</span>
+          </h1>
+          
+          <h2 class="hero-role">
+            Học sinh đam mê <span class="text-cyan">Kỹ thuật Hàng Không</span> &amp; <span class="text-violet">Lập trình Web Tương tác</span>
+          </h2>
+          
+          <p class="hero-description">
+            Chào mừng bạn đến với website cá nhân của mình! Nơi hội tụ tinh thần khám phá thế giới hàng không hiện đại, niềm say mê với dòng siêu phi cơ <strong>Boeing 787-9 Dreamliner</strong> và sản phẩm web tương tác bóc tách kỹ thuật mà mình vô cùng tự hào.
+          </p>
+          
+          <div class="hero-buttons">
+            <a href="b787-9-vietnam-airlines/index.html" target="_blank" class="btn btn-primary glow-effect">
+              <i class="fa-solid fa-plane-up"></i> Web Khám Phá B787 Vui Nhộn 🚀
+            </a>
+            <a href="#hud-simulator" class="btn btn-outline">
+              <i class="fa-solid fa-gamepad"></i> Trải nghiệm Buồng Lái Ảo
+            </a>
+            <a href="#quiz" class="btn btn-secondary">
+              <i class="fa-solid fa-graduation-cap"></i> Nhận Chứng Chỉ B787-9
+            </a>
+          </div>
+          
+          <div class="hero-stats-panel glass-card">
+            <div class="hero-stat-card">
+              <span class="stat-num text-cyan">THCS</span>
+              <span class="stat-sub">Linh Đàm, Hà Nội</span>
+            </div>
+            <div class="hero-stat-card">
+              <span class="stat-num text-gold">B787-9</span>
+              <span class="stat-sub">Dự án Flagship tự hào</span>
+            </div>
+            <div class="hero-stat-card">
+              <span class="stat-num text-success">8 Hotspots</span>
+              <span class="stat-sub">Bóc tách linh kiện đa điểm</span>
+            </div>
+            <div class="hero-stat-card">
+              <span class="stat-num text-violet">100%</span>
+              <span class="stat-sub">Tự xây dựng &amp; Sáng tạo</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="hero-visual">
+          <div class="avatar-card-container">
+            <div class="avatar-glow-ring"></div>
+            <div class="avatar-inner-box">
+              <div class="avatar-flight-tag">
+                <i class="fa-solid fa-plane-shield text-gold"></i>
+                <span>FLIGHT CADET 2026</span>
+              </div>
+              
+              <div class="avatar-core-circle">
+                <div class="avatar-initials-glow">PK</div>
+              </div>
+              
+              <div class="avatar-profile-info">
+                <h3 class="avatar-name">Phúc Khánh</h3>
+                <p class="avatar-school"><i class="fa-solid fa-school text-cyan"></i> THCS Linh Đàm</p>
+                <div class="avatar-badge-list">
+                  <span class="badge-mini"><i class="fa-solid fa-code"></i> Frontend Dev</span>
+                  <span class="badge-mini"><i class="fa-solid fa-jet-fighter"></i> Aviation Fan</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1 & 2: Em là ai & Em thích hoặc quan tâm điều gì -->
+  <section class="about reveal" id="about">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-check"></i> TIÊU CHÍ 1 &amp; 2 CỦA BÀI TẬP</span>
+        <h2 class="section-title">Em Là Ai &amp; Em Đam Mê Điều Gì?</h2>
+        <p class="section-desc">Bản sắc cá nhân, tinh thần học hỏi không ngừng và niềm đam mê công nghệ định hình tương lai.</p>
+      </div>
+      
+      <div class="about-wrapper">
+        <div class="about-text-column">
+          
+          <div class="glass-card about-info-card">
+            <div class="card-icon-pill bg-cyan-soft">
+              <i class="fa-regular fa-id-card text-cyan"></i>
+              <span>MỤC 1: EM LÀ AI</span>
+            </div>
+            <h3 class="about-card-title">Học sinh đam mê sáng tạo &amp; kỹ thuật số</h3>
+            <p>
+              Em tên là <strong>Phúc Khánh</strong>, hiện đang học tập tại trường <strong>THCS Linh Đàm (Hoàng Mai, Hà Nội)</strong>. Em là một người luôn tràn đầy năng lượng, có tinh thần tự học cao, tò mò khám phá cách vận hành của các cỗ máy công nghệ cao và thích tự tay hiện thực hóa ý tưởng thành các trang web sống động.
+            </p>
+            <p>
+              Phương châm học tập của em là: <em>"Học kiến thức để hiểu thế giới, lập trình để kết nối mọi người."</em> Mỗi dự án web là cơ hội để em chia sẻ kiến thức hữu ích một cách trực quan và lôi cuốn nhất.
+            </p>
+          </div>
+
+          <div class="glass-card about-info-card">
+            <div class="card-icon-pill bg-gold-soft">
+              <i class="fa-solid fa-heart text-gold"></i>
+              <span>MỤC 2: EM THÍCH ĐIỀU GÌ</span>
+            </div>
+            <h3 class="about-card-title">Đam mê Kỹ thuật Hàng Không &amp; Lập trình Web</h3>
+            <p>
+              Em có niềm say mê đặc biệt với <strong>Khoa học Kỹ thuật Hàng Không</strong>, đặc biệt là dòng máy bay thân rộng hiện đại <strong>Boeing 787-9 Dreamliner</strong> – chiếc phi cơ mang tính cách mạng với hơn 50% thân bằng sợi carbon composite siêu nhẹ và động cơ GEnx-1B thân thiện môi trường.
+            </p>
+            <p>
+              Ngoài ra, em còn thích <strong>Lập trình Frontend</strong> (HTML5, CSS3, JavaScript tương tác), <strong>Tập Gym</strong> mỗi ngày để rèn luyện sức khỏe, sự kiên trì và <strong>Chơi Roblox</strong> cùng bạn bè để thử nghiệm tư duy logic.
+            </p>
+          </div>
+
+        </div>
+        
+        <div class="about-skills-column">
+          <div class="glass-card skills-card-wrap">
+            <h3 class="skills-column-title"><i class="fa-solid fa-bolt text-gold"></i> Bảng Lĩnh Vực Yêu Thích &amp; Kỹ Năng</h3>
+            
+            <div class="skills-grid-modern">
+              
+              <div class="skill-modern-item">
+                <div class="skill-item-icon" style="color: #38bdf8; background: rgba(56, 189, 248, 0.15);">
+                  <i class="fa-solid fa-plane"></i>
+                </div>
+                <div class="skill-item-body">
+                  <div class="skill-name-row">
+                    <span class="skill-title">Kỹ thuật Hàng Không &amp; B787-9</span>
+                    <span class="skill-pct text-cyan">95%</span>
+                  </div>
+                  <div class="skill-meter"><div class="meter-fill" style="width: 95%; background: #38bdf8;"></div></div>
+                  <span class="skill-caption">Cấu tạo khí động học, động cơ GEnx, composite</span>
+                </div>
+              </div>
+
+              <div class="skill-modern-item">
+                <div class="skill-item-icon" style="color: #a78bfa; background: rgba(167, 139, 250, 0.15);">
+                  <i class="fa-solid fa-code"></i>
+                </div>
+                <div class="skill-item-body">
+                  <div class="skill-name-row">
+                    <span class="skill-title">Lập trình Web Frontend</span>
+                    <span class="skill-pct text-violet">90%</span>
+                  </div>
+                  <div class="skill-meter"><div class="meter-fill" style="width: 90%; background: #a78bfa;"></div></div>
+                  <span class="skill-caption">HTML5, CSS3, JavaScript ES6, Tailwind UI</span>
+                </div>
+              </div>
+
+              <div class="skill-modern-item">
+                <div class="skill-item-icon" style="color: #fbbf24; background: rgba(251, 191, 36, 0.15);">
+                  <i class="fa-solid fa-brain"></i>
+                </div>
+                <div class="skill-item-body">
+                  <div class="skill-name-row">
+                    <span class="skill-title">Product Thinking (Tư Duy Sản Phẩm)</span>
+                    <span class="skill-pct text-gold">88%</span>
+                  </div>
+                  <div class="skill-meter"><div class="meter-fill" style="width: 88%; background: #fbbf24;"></div></div>
+                  <span class="skill-caption">Định vị người dùng, trải nghiệm UX, giải quyết vấn đề</span>
+                </div>
+              </div>
+
+              <div class="skill-modern-item">
+                <div class="skill-item-icon" style="color: #34d399; background: rgba(52, 211, 153, 0.15);">
+                  <i class="fa-solid fa-dumbbell"></i>
+                </div>
+                <div class="skill-item-body">
+                  <div class="skill-name-row">
+                    <span class="skill-title">Tập Gym &amp; Thể Thao Thể Lực</span>
+                    <span class="skill-pct text-success">85%</span>
+                  </div>
+                  <div class="skill-meter"><div class="meter-fill" style="width: 85%; background: #34d399;"></div></div>
+                  <span class="skill-caption">Kỷ luật bản thân, sức bền và nâng cao thể chất</span>
+                </div>
+              </div>
+
+              <div class="skill-modern-item">
+                <div class="skill-item-icon" style="color: #f472b6; background: rgba(244, 114, 182, 0.15);">
+                  <i class="fa-solid fa-gamepad"></i>
+                </div>
+                <div class="skill-item-body">
+                  <div class="skill-name-row">
+                    <span class="skill-title">Roblox Game &amp; Không gian 3D</span>
+                    <span class="skill-pct" style="color: #f472b6;">82%</span>
+                  </div>
+                  <div class="skill-meter"><div class="meter-fill" style="width: 82%; background: #f472b6;"></div></div>
+                  <span class="skill-caption">Sáng tạo kịch bản logic và tương tác nhóm</span>
+                </div>
+              </div>
+
+              <div class="skill-modern-item">
+                <div class="skill-item-icon" style="color: #f87171; background: rgba(248, 113, 113, 0.15);">
+                  <i class="fa-solid fa-drumstick-bite"></i>
+                </div>
+                <div class="skill-item-body">
+                  <div class="skill-name-row">
+                    <span class="skill-title">Ẩm thực &amp; Món Ăn Từ Gà</span>
+                    <span class="skill-pct" style="color: #f87171;">100%</span>
+                  </div>
+                  <div class="skill-meter"><div class="meter-fill" style="width: 100%; background: #f87171;"></div></div>
+                  <span class="skill-caption">Món khoái khẩu nạp năng lượng sau giờ học và tập gym</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Một sản phẩm, hoạt động, thành tích mà em tự hào (Dự Án B787-9) -->
+  <section class="project-section reveal" id="project">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-trophy"></i> TIÊU CHÍ 3 CỦA BÀI TẬP</span>
+        <h2 class="section-title">Sản Phẩm Mà Em Tự Hào Nhất</h2>
+        <p class="section-desc">Website Tra Cứu &amp; Mô Phỏng Cấu Tạo Tàu Bay Boeing 787-9 Dreamliner (Vietnam Airlines).</p>
+      </div>
+
+      <!-- Main Showcase Mega Card -->
+      <div class="showcase-mega-card glass-card">
+        <div class="mega-card-grid">
+          
+          <!-- Visual & Interactive Preview Side -->
+          <div class="mega-visual-side">
+            <div class="mega-image-container">
+              <img src="images/vietnam_airlines_b787_ocean.jpg?v=2" alt="Boeing 787-9 Vietnam Airlines Ocean Approach" class="mega-img" id="showcaseMainImg">
+              <div class="mega-overlay-hud">
+                <div class="hud-indicator">
+                  <span class="radar-scan"></span>
+                  <i class="fa-solid fa-crosshairs text-gold"></i>
+                  <span>HOTSPOT EXPLORER ACTIVE</span>
+                </div>
+                <span class="aircraft-code">VN-A868 &bull; B787-9 OCEAN APPROACH</span>
+              </div>
+            </div>
+            
+            <!-- Quick Image Thumbnails Selector -->
+            <div class="thumb-selector-grid">
+              <button class="thumb-btn active" data-img="images/vietnam_airlines_b787_ocean.jpg?v=2" data-caption="Boeing 787-9 Vietnam Airlines tiếp cận hạ cánh trên vịnh biển">
+                <img src="images/vietnam_airlines_b787_ocean.jpg?v=2" alt="B787 Ocean">
+                <span>Hạ cánh biển</span>
+              </button>
+              <button class="thumb-btn" data-img="images/vietnam_airlines_b787_tarmac.png" data-caption="Sơ đồ tương tác Tarmac toàn cảnh">
+                <img src="images/vietnam_airlines_b787_tarmac.png" alt="Tarmac">
+                <span>Toàn cảnh</span>
+              </button>
+              <button class="thumb-btn" data-img="images/vietnam_airlines_b787_engine_closeup.png" data-caption="Động cơ siêu êm GEnx-1B">
+                <img src="images/vietnam_airlines_b787_engine_closeup.png" alt="Engine">
+                <span>Động cơ</span>
+              </button>
+              <button class="thumb-btn" data-img="images/b787_apu_closeup.png" data-caption="Động cơ phụ APU & Đuôi">
+                <img src="images/b787_apu_closeup.png" alt="APU">
+                <span>APU Đuôi</span>
+              </button>
+            </div>
+
+            <!-- Technical Key Metrics Strip -->
+            <div class="specs-metrics-bar">
+              <div class="metric-block">
+                <span class="m-label">Tầm Bay Tối Đa</span>
+                <span class="m-val text-gold">14.140 km</span>
+              </div>
+              <div class="metric-block">
+                <span class="m-label">Sải Cánh</span>
+                <span class="m-val text-cyan">60.1 m</span>
+              </div>
+              <div class="metric-block">
+                <span class="m-label">Động Cơ</span>
+                <span class="m-val text-violet">GEnx-1B</span>
+              </div>
+              <div class="metric-block">
+                <span class="m-label">Ghế Ngồi</span>
+                <span class="m-val text-success">274 Ghế</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Information & Feature Breakdown Side -->
+          <div class="mega-info-side">
+            <div class="flagship-badge">
+              <i class="fa-solid fa-crown text-gold"></i>
+              <span>DỰ ÁN CÔNG NGHỆ TỰ HÀO NHẤT (FLAGSHIP PRODUCT)</span>
+            </div>
+
+            <h3 class="mega-project-title">
+              B787-9 Aircraft Parts Interactive Website
+            </h3>
+            
+            <p class="mega-project-summary">
+              Dự án website trực quan chuyên sâu do em tự tay xây dựng từ đầu. Thay vì đọc những tài liệu kỹ thuật dài dòng, người xem có thể tương tác trực tiếp lên sơ đồ máy bay Boeing 787-9 để bóc tách <strong>8 bộ phận khí động học cốt lõi</strong> với hình ảnh phóng to và thông số thực tế.
+            </p>
+
+            <div class="mega-features-list">
+              <div class="feature-item-row">
+                <div class="f-icon bg-cyan-soft text-cyan"><i class="fa-solid fa-location-crosshairs"></i></div>
+                <div>
+                  <h4 class="f-title">Sơ đồ tương tác Hotspot 8 Điểm Vàng</h4>
+                  <p class="f-desc">Bấm vào Mũi Radar, Ống Pitot, Buồng lái Glass Cockpit, Động cơ GEnx-1B, Cánh Raked Wingtip, Càng đáp, APU và Bánh lái đuôi để tra cứu chi tiết.</p>
+                </div>
+              </div>
+
+              <div class="feature-item-row">
+                <div class="f-icon bg-gold-soft text-gold"><i class="fa-solid fa-microchip"></i></div>
+                <div>
+                  <h4 class="f-title">Bản vẽ Vector động &amp; Thông số chuẩn kỹ thuật</h4>
+                  <p class="f-desc">Hình vẽ vector chi tiết minh họa nguyên lý áp suất toàn phần, công nghệ răng cưa chevrons giảm ồn và dữ liệu khí động học.</p>
+                </div>
+              </div>
+
+              <div class="feature-item-row">
+                <div class="f-icon bg-violet-soft text-violet"><i class="fa-solid fa-palette"></i></div>
+                <div>
+                  <h4 class="f-title">Phong cách Dark Luxury Vietnam Airlines</h4>
+                  <p class="f-desc">Màu xanh lục bảo (Teal) và vàng kim (Gold) sang trọng, chuẩn Responsive 100% trên điện thoại và máy tính.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mega-cta-group">
+              <a href="b787-9-vietnam-airlines/index.html" class="btn btn-primary glow-teal" target="_blank">
+                <i class="fa-solid fa-microchip"></i> Xem Bản Kỹ Thuật Chuyên Sâu 🚀
+              </a>
+              <a href="fun.html" class="btn btn-secondary glow-effect" target="_blank" style="background: linear-gradient(135deg, #f59e0b, #e11d48); color: white; border: none;">
+                <i class="fa-solid fa-gamepad"></i> Chơi Game & Đố Vui (Fun Hub) 🎮
+              </a>
+              <button class="btn btn-outline" id="openPartsPreviewModalBtn">
+                <i class="fa-solid fa-eye"></i> Xem Nhanh 8 Bộ Phận
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Second Showcase Card: Fun Hub & Mini-Games Arcade -->
+      <div class="showcase-mega-card glass-card" style="margin-top: 2rem; border-color: rgba(245, 158, 11, 0.3);">
+        <div class="mega-card-grid">
+          
+          <div class="mega-visual-side">
+            <div class="mega-image-container">
+              <img src="images/vietnam_airlines_b787_runway_night.png" alt="Boeing 787 Fun Hub Arcade" class="mega-img">
+              <div class="mega-overlay-hud" style="background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent);">
+                <div class="hud-indicator" style="background: rgba(245, 158, 11, 0.2); border-color: #f59e0b;">
+                  <i class="fa-solid fa-gamepad text-gold"></i>
+                  <span>3 MINI-GAMES ARCADE ACTIVE</span>
+                </div>
+                <span class="aircraft-code" style="color: #fde047;">ARCADE PLAYZONE &bull; 100% VUI NHỘN</span>
+              </div>
+            </div>
+            
+            <div class="specs-metrics-bar">
+              <div class="metric-block">
+                <span class="m-label">Mini-Games</span>
+                <span class="m-val text-gold">3 Trò Chơi</span>
+              </div>
+              <div class="metric-block">
+                <span class="m-label">Vòng Quay</span>
+                <span class="m-val text-cyan">8 Danh Hiệu</span>
+              </div>
+              <div class="metric-block">
+                <span class="m-label">Ghế Tương Tác</span>
+                <span class="m-val text-violet">Gọi Mì Tôm & Ngả Ghế</span>
+              </div>
+              <div class="metric-block">
+                <span class="m-label">Đố Vui Bựa</span>
+                <span class="m-val text-success">3 Chế Độ</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mega-info-side">
+            <div class="flagship-badge" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4); color: #fbbf24;">
+              <i class="fa-solid fa-wand-magic-sparkles text-gold"></i>
+              <span>DỰ ÁN GIẢI TRÍ &amp; TRÒ CHƠI HÀNG KHÔNG (FUN HUB)</span>
+            </div>
+
+            <h3 class="mega-project-title">
+              Boeing 787 Fun Hub &amp; Mini-Games Arcade
+            </h3>
+            
+            <p class="mega-project-summary">
+              Phiên bản giải trí đặc biệt dành cho mọi người, học sinh và bạn bè không cần kiến thức kỹ thuật. Trải nghiệm <strong>3 mini-games cực cuốn</strong> (Lái 787 lượn mây, Hứng đồ ăn tiếp viên, Flappy Dreamliner), <strong>Vòng quay nhân phẩm</strong>, và <strong>Bàn nghịch ghế hành khách</strong> khiến cả cabin cười nghiêng ngả!
+            </p>
+
+            <div class="mega-features-list">
+              <div class="feature-item-row">
+                <div class="f-icon bg-gold-soft text-gold"><i class="fa-solid fa-gamepad"></i></div>
+                <div>
+                  <h4 class="f-title">3 Mini-Games 2D Canvas 60 FPS</h4>
+                  <p class="f-desc">Cất cánh lái máy bay bắt Sen Vàng, lái xe đẩy hứng trà sữa mì tôm né vỏ chuối, vỗ cánh bay xuyên bão.</p>
+                </div>
+              </div>
+
+              <div class="feature-item-row">
+                <div class="f-icon bg-cyan-soft text-cyan"><i class="fa-solid fa-dharmachakra"></i></div>
+                <div>
+                  <h4 class="f-title">Vòng Quay May Mắn &amp; Bàn Ghế Nghịch Ngợm</h4>
+                  <p class="f-desc">Quay trúng "Thánh Ngủ Vô Cực", "1 Triệu Ly Trà Sữa", bấm chuông tiếp viên mang đồ ăn nóng hổi.</p>
+                </div>
+              </div>
+
+              <div class="feature-item-row">
+                <div class="f-icon bg-violet-soft text-violet"><i class="fa-solid fa-brain"></i></div>
+                <div>
+                  <h4 class="f-title">Đố Vui Bựa &amp; Bói Tính Cách Hành Khách</h4>
+                  <p class="f-desc">Giải mã tin đồn toilet hút chân không 150 km/h, bói xem bạn là Thánh Ngủ hay Thánh Xin Nước Ngọt.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mega-cta-group">
+              <a href="fun.html" class="btn btn-primary glow-effect" target="_blank" style="background: linear-gradient(135deg, #f59e0b, #e11d48); border: none;">
+                <i class="fa-solid fa-play"></i> Chơi Game &amp; Khám Phá Fun Hub Ngay! 🎮
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Cockpit HUD & Telemetry Simulator Section -->
+  <section class="hud-section reveal" id="hud-simulator">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-sliders"></i> TÍNH NĂNG TƯƠNG TÁC ĐẶC BIỆT</span>
+        <h2 class="section-title">Mô Phỏng Buồng Lái Kỹ Thuật Số (Cockpit HUD)</h2>
+        <p class="section-desc">Thử điều chỉnh lực đẩy động cơ GEnx và độ cao bay để quan sát thông số khí động học của Boeing 787-9.</p>
+      </div>
+
+      <div class="hud-terminal-card glass-card">
+        <div class="hud-top-bar">
+          <div class="hud-flight-id">
+            <i class="fa-solid fa-plane text-cyan"></i>
+            <span>FLIGHT SIM: VN-B787-9 DREAMLINER</span>
+          </div>
+          <div class="hud-status-badge">
+            <span class="status-blink"></span> CRUISE MODE
+          </div>
+        </div>
+
+        <div class="hud-grid-layout">
+          <!-- Gauges & Telemetry -->
+          <div class="hud-instruments">
+            <div class="instrument-box">
+              <span class="inst-label">TỐC ĐỘ BAY (AIRSPEED)</span>
+              <div class="inst-val-row">
+                <span class="inst-number" id="hudSpeedVal">Mach 0.85</span>
+                <span class="inst-unit">~ 903 km/h</span>
+              </div>
+              <div class="hud-bar-wrap"><div class="hud-bar-fill" id="hudSpeedBar" style="width: 85%;"></div></div>
+            </div>
+
+            <div class="instrument-box">
+              <span class="inst-label">ĐỘ CAO HÀNH TRÌNH (ALTITUDE)</span>
+              <div class="inst-val-row">
+                <span class="inst-number text-cyan" id="hudAltVal">39,000 FT</span>
+                <span class="inst-unit">~ 11,887 m</span>
+              </div>
+              <div class="hud-bar-wrap"><div class="hud-bar-fill" id="hudAltBar" style="width: 90%; background: #38bdf8;"></div></div>
+            </div>
+
+            <div class="instrument-box">
+              <span class="inst-label">LỰC ĐẨY ĐỘNG CƠ GEnx-1B (THRUST)</span>
+              <div class="inst-val-row">
+                <span class="inst-number text-gold" id="hudThrustVal">85% N1</span>
+                <span class="inst-unit">2 x 340 kN</span>
+              </div>
+              <div class="hud-bar-wrap"><div class="hud-bar-fill" id="hudThrustBar" style="width: 85%; background: #fbbf24;"></div></div>
+            </div>
+
+            <div class="instrument-box">
+              <span class="inst-label">ÁP SUẤT CABIN (COMPOSITE BENEFIT)</span>
+              <div class="inst-val-row">
+                <span class="inst-number text-success" id="hudCabinVal">6,000 FT Equiv</span>
+                <span class="inst-unit">Êm ái vượt trội</span>
+              </div>
+              <div class="hud-bar-wrap"><div class="hud-bar-fill" style="width: 75%; background: #34d399;"></div></div>
+            </div>
+          </div>
+
+          <!-- Interactive Flight Controls -->
+          <div class="hud-controls-panel">
+            <h4 class="ctrl-heading"><i class="fa-solid fa-gamepad text-gold"></i> Bảng Điều Khiển Buồng Lái</h4>
+            
+            <div class="control-row">
+              <div class="ctrl-label-row">
+                <span>Cần Gạt Lực Đẩy (Thrust Lever):</span>
+                <span class="ctrl-current-val text-gold" id="thrustSliderVal">85%</span>
+              </div>
+              <input type="range" min="20" max="100" value="85" class="flight-slider" id="thrustSlider">
+            </div>
+
+            <div class="control-row">
+              <div class="ctrl-label-row">
+                <span>Độ Cao Bay (Flight Level):</span>
+                <span class="ctrl-current-val text-cyan" id="altSliderVal">39,000 ft</span>
+              </div>
+              <input type="range" min="10000" max="43000" step="1000" value="39000" class="flight-slider" id="altSlider">
+            </div>
+
+            <div class="control-row">
+              <div class="ctrl-label-row">
+                <span>Góc Cánh Tà (Flaps Configuration):</span>
+                <span class="ctrl-current-val text-violet" id="flapsVal">UP (0°)</span>
+              </div>
+              <div class="flaps-btn-group">
+                <button class="flaps-btn active" data-flaps="UP (0°)">0° (Cruise)</button>
+                <button class="flaps-btn" data-flaps="Flaps 15°">15° (Takeoff)</button>
+                <button class="flaps-btn" data-flaps="Flaps 30°">30° (Landing)</button>
+              </div>
+            </div>
+
+            <div class="hud-alert-box" id="hudTipBox">
+              <i class="fa-solid fa-circle-info text-cyan"></i>
+              <span id="hudTipText">Thân máy bay B787 làm từ composite cho phép duy trì áp suất cabin ở mức 6.000 ft (thay vì 8.000 ft như vỏ nhôm), giúp hành khách không bị mệt mỏi và say độ cao.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vietnam Airlines B787-9 Global Flight Routes Section -->
+  <section class="routes-section reveal" id="routes">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-globe"></i> TẦM BAY &amp; ĐƯỜNG BAY QUỐC TẾ</span>
+        <h2 class="section-title">Mạng Đường Bay Thân Rộng Boeing 787-9 Vietnam Airlines</h2>
+        <p class="section-desc">Nhờ tầm bay 14.140 km và tiết kiệm 20% nhiên liệu, B787-9 là xương sống trên các chặng bay xuyên lục địa.</p>
+      </div>
+
+      <div class="routes-grid">
+        
+        <!-- Route 1: London -->
+        <div class="route-card glass-card">
+          <div class="route-top">
+            <span class="flight-num">VN55 / VN56</span>
+            <span class="route-type-badge">Bay Thẳng Xuyên Lục Địa</span>
+          </div>
+          <div class="route-path">
+            <div class="city-box">
+              <span class="city-code">HAN</span>
+              <span class="city-name">Hà Nội (HAN)</span>
+            </div>
+            <div class="flight-line">
+              <i class="fa-solid fa-plane plane-fly-anim"></i>
+              <span class="flight-duration">11h 45m</span>
+            </div>
+            <div class="city-box">
+              <span class="city-code">LHR</span>
+              <span class="city-name">Luân Đôn (LHR)</span>
+            </div>
+          </div>
+          <div class="route-details-grid">
+            <div><span class="r-sub">Khoảng cách:</span> <strong>9.240 km</strong></div>
+            <div><span class="r-sub">Tiết kiệm nhiên liệu:</span> <strong class="text-success">~16.000 kg/chuyến</strong></div>
+          </div>
+        </div>
+
+        <!-- Route 2: Paris -->
+        <div class="route-card glass-card">
+          <div class="route-top">
+            <span class="flight-num">VN19 / VN18</span>
+            <span class="route-type-badge">Bay Thẳng Xuyên Lục Địa</span>
+          </div>
+          <div class="route-path">
+            <div class="city-box">
+              <span class="city-code">SGN</span>
+              <span class="city-name">TP. Hồ Chí Minh</span>
+            </div>
+            <div class="flight-line">
+              <i class="fa-solid fa-plane plane-fly-anim"></i>
+              <span class="flight-duration">12h 10m</span>
+            </div>
+            <div class="city-box">
+              <span class="city-code">CDG</span>
+              <span class="city-name">Paris (CDG)</span>
+            </div>
+          </div>
+          <div class="route-details-grid">
+            <div><span class="r-sub">Khoảng cách:</span> <strong>10.100 km</strong></div>
+            <div><span class="r-sub">Tiết kiệm nhiên liệu:</span> <strong class="text-success">~17.500 kg/chuyến</strong></div>
+          </div>
+        </div>
+
+        <!-- Route 3: Frankfurt -->
+        <div class="route-card glass-card">
+          <div class="route-top">
+            <span class="flight-num">VN37 / VN36</span>
+            <span class="route-type-badge">Bay Thẳng Xuyên Lục Địa</span>
+          </div>
+          <div class="route-path">
+            <div class="city-box">
+              <span class="city-code">HAN</span>
+              <span class="city-name">Hà Nội (HAN)</span>
+            </div>
+            <div class="flight-line">
+              <i class="fa-solid fa-plane plane-fly-anim"></i>
+              <span class="flight-duration">11h 55m</span>
+            </div>
+            <div class="city-box">
+              <span class="city-code">FRA</span>
+              <span class="city-name">Frankfurt (FRA)</span>
+            </div>
+          </div>
+          <div class="route-details-grid">
+            <div><span class="r-sub">Khoảng cách:</span> <strong>9.350 km</strong></div>
+            <div><span class="r-sub">Tiết kiệm nhiên liệu:</span> <strong class="text-success">~16.200 kg/chuyến</strong></div>
+          </div>
+        </div>
+
+        <!-- Route 4: Sydney -->
+        <div class="route-card glass-card">
+          <div class="route-top">
+            <span class="flight-num">VN773 / VN772</span>
+            <span class="route-type-badge">Châu Á - Châu Đại Dương</span>
+          </div>
+          <div class="route-path">
+            <div class="city-box">
+              <span class="city-code">SGN</span>
+              <span class="city-name">TP. Hồ Chí Minh</span>
+            </div>
+            <div class="flight-line">
+              <i class="fa-solid fa-plane plane-fly-anim"></i>
+              <span class="flight-duration">8h 40m</span>
+            </div>
+            <div class="city-box">
+              <span class="city-code">SYD</span>
+              <span class="city-name">Sydney (SYD)</span>
+            </div>
+          </div>
+          <div class="route-details-grid">
+            <div><span class="r-sub">Khoảng cách:</span> <strong>7.180 km</strong></div>
+            <div><span class="r-sub">Tiết kiệm nhiên liệu:</span> <strong class="text-success">~12.800 kg/chuyến</strong></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Aviation Quiz & Certificate Generator Section -->
+  <section class="quiz-section reveal" id="quiz">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-award"></i> TRÒ CHƠI &amp; XUẤT CHỨNG CHỈ</span>
+        <h2 class="section-title">Thử Tài Kiến Thức: Đố Vui Boeing 787-9 &amp; Hàng Không</h2>
+        <p class="section-desc">Hoàn thành bộ câu hỏi để nhận ngay <strong>Chứng Chỉ Chuyên Gia Hàng Không B787-9</strong> mang tên bạn!</p>
+      </div>
+
+      <div class="glass-card quiz-card">
+        
+        <!-- Quiz Intro Screen -->
+        <div id="quiz-intro">
+          <div class="quiz-badge-icon">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <h3 class="quiz-intro-heading">
+            Sẵn sàng cất cánh cùng Thử Thách B787-9?
+          </h3>
+          <p class="quiz-intro-p">
+            Bộ 5 câu hỏi trắc nghiệm với hình ảnh thực tế sẽ kiểm tra sự hiểu biết của bạn về công nghệ composite, động cơ GEnx-1B và cấu tạo hiện đại của Boeing 787-9.
+          </p>
+          
+          <div class="quiz-user-input-wrap">
+            <label for="userNameForCert" class="input-label"><i class="fa-solid fa-user-pen text-cyan"></i> Nhập họ tên của bạn để in lên Chứng chỉ:</label>
+            <input type="text" id="userNameForCert" class="cert-input-control" placeholder="Ví dụ: Nguyễn Văn A..." value="Thầy Cô / Bạn Bè">
+          </div>
+
+          <div class="text-center mt-3">
+            <button class="btn btn-primary glow-effect" id="start-quiz-btn">
+              <i class="fa-solid fa-play"></i> Bắt đầu thi đấu
+            </button>
+          </div>
+        </div>
+        
+        <!-- Question Active Screen -->
+        <div id="quiz-container" style="display: none;">
+          <div class="quiz-progress-wrap">
+            <div class="progress-info-row">
+              <span id="question-number">Câu hỏi 1/5</span>
+              <span id="current-score-tag" class="score-tag">Điểm hiện tại: 0</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="progress-bar"></div>
+            </div>
+          </div>
+
+          <div id="quiz-image-container" class="quiz-img-box" style="display: none;">
+            <img id="quiz-question-image" src="" alt="Hình ảnh câu hỏi" class="quiz-img-fluid">
+          </div>
+
+          <h3 id="question-text" class="question-title">
+            Câu hỏi ở đây?
+          </h3>
+
+          <div class="options-grid" id="options-container">
+            <!-- Options will be injected dynamically -->
+          </div>
+
+          <div class="quiz-feedback" id="quiz-feedback" style="display: none;"></div>
+
+          <div class="quiz-footer-actions">
+            <button class="btn btn-primary" id="next-question-btn" style="display: none;">
+              Câu tiếp theo <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Quiz Result Screen with Certificate -->
+        <div id="quiz-result" style="display: none;">
+          
+          <div class="result-top-summary text-center">
+            <div class="result-icon-wrap" id="result-icon">
+              <i class="fa-solid fa-crown text-gold" style="font-size: 3.5rem;"></i>
+            </div>
+            <h3 class="result-title">Kết Quả Chuyến Bay</h3>
+            <p id="result-text" class="result-desc"></p>
+          </div>
+
+          <!-- Official Aviation Certificate Canvas & Card -->
+          <div class="certificate-container glass-card" id="certificateBox">
+            <div class="cert-inner-frame">
+              <div class="cert-header">
+                <i class="fa-solid fa-award cert-icon-gold"></i>
+                <h4 class="cert-company">VIETNAM AIRLINES &bull; B787-9 ACADEMY</h4>
+                <h3 class="cert-title">CHỨNG NHẬN AM HIỂU KỸ THUẬT HÀNG KHÔNG</h3>
+              </div>
+              
+              <div class="cert-body">
+                <p class="cert-presented">Chứng nhận được trao cho:</p>
+                <h2 class="cert-candidate-name" id="certCandidateName">HỌC VIÊN XUẤT SẮC</h2>
+                <p class="cert-achievement-text" id="certScoreText">Đã xuất sắc hoàn thành bài trắc nghiệm kiến thức tàu bay Boeing 787-9 Dreamliner với điểm số tuyệt đối 5/5.</p>
+              </div>
+
+              <div class="cert-footer-row">
+                <div class="cert-sign">
+                  <span class="sign-role">Tác giả Website</span>
+                  <strong class="sign-name">Phúc Khánh</strong>
+                  <span class="sign-school">THCS Linh Đàm</span>
+                </div>
+                <div class="cert-stamp">
+                  <div class="stamp-circle">
+                    <i class="fa-solid fa-plane-up"></i>
+                    <span>VERIFIED</span>
+                  </div>
+                </div>
+                <div class="cert-date">
+                  <span class="sign-role">Ngày cấp</span>
+                  <strong id="certDateDisplay">2026-09-02</strong>
+                  <span class="sign-school">Simba System</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-actions-row text-center mt-4">
+            <button class="btn btn-primary" id="downloadCertBtn">
+              <i class="fa-solid fa-download"></i> Tải Ảnh Chứng Chỉ (.PNG)
+            </button>
+            <button class="btn btn-secondary" id="restart-quiz-btn">
+              <i class="fa-solid fa-rotate-left"></i> Chơi lại lần nữa
+            </button>
+            <a href="#project" class="btn btn-outline">
+              <i class="fa-solid fa-plane"></i> Ôn lại bài trên B787-9
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Thinking Form Section (Chuẩn chỉnh để nộp bài và chấm điểm) -->
+  <section class="pt-section reveal" id="product-thinking">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-clipboard-check"></i> HỒ SƠ NỘP BÀI SIMBA</span>
+        <h2 class="section-title">Câu Trả Lời Tư Duy Sản Phẩm (Product Thinking)</h2>
+        <p class="section-desc">Bản tổng hợp câu trả lời chuẩn chỉnh theo 4 câu hỏi định hướng của đề bài để nộp lên hệ thống Simba.</p>
+      </div>
+
+      <div class="pt-cards-grid">
+        
+        <div class="pt-card glass-card">
+          <div class="pt-card-header">
+            <span class="pt-number">01</span>
+            <h4>Em là ai? (Đối tượng người xem)</h4>
+          </div>
+          <div class="pt-card-body">
+            <p><strong>Bản thân tác giả:</strong> Em là <strong>Phúc Khánh</strong>, học sinh trường THCS Linh Đàm (Hà Nội). Em đam mê kỹ thuật hàng không, khám phá cơ chế hoạt động của máy bay và thích lập trình web tạo ra các sản phẩm trực quan.</p>
+            <p><strong>Người xem mục tiêu:</strong> Thầy cô chấm bài trên Simba, bạn bè cùng lớp, phụ huynh và cộng đồng những người đam mê khoa học hàng không.</p>
+          </div>
+        </div>
+
+        <div class="pt-card glass-card">
+          <div class="pt-card-header">
+            <span class="pt-number">02</span>
+            <h4>Em thích hoặc quan tâm điều gì?</h4>
+          </div>
+          <div class="pt-card-body">
+            <p><strong>Đam mê kỹ thuật:</strong> Công nghệ chế tạo phi cơ hiện đại Boeing 787-9 Dreamliner (vật liệu thân composite carbon siêu nhẹ, động cơ GEnx-1B êm ái, cánh vát khí động học).</p>
+            <p><strong>Kỹ năng sáng tạo:</strong> Lập trình Frontend (HTML, CSS, JavaScript), thiết kế giao diện tương tác UI/UX, rèn luyện thể thao nâng cao thể chất.</p>
+          </div>
+        </div>
+
+        <div class="pt-card glass-card">
+          <div class="pt-card-header">
+            <span class="pt-number">03</span>
+            <h4>Sản phẩm em tự hào</h4>
+          </div>
+          <div class="pt-card-body">
+            <p><strong>Tên sản phẩm:</strong> <em>B787-9 Aircraft Parts Website (Vietnam Airlines Explorer)</em>.</p>
+            <p><strong>Giá trị mang lại:</strong> Thay vì đọc tài liệu kỹ thuật dài dòng, người xem chỉ cần bấm vào các điểm sáng Hotspot trên thân máy bay để xem ngay hình vẽ minh họa, nguyên lý hoạt động và thông số thực tế của 8 bộ phận chủ chốt.</p>
+          </div>
+        </div>
+
+        <div class="pt-card glass-card">
+          <div class="pt-card-header">
+            <span class="pt-number">04</span>
+            <h4>Người xem tìm hiểu thêm ở đâu?</h4>
+          </div>
+          <div class="pt-card-body">
+            <p><strong>Kênh kết nối:</strong> Mục Liên Hệ trực tiếp bên dưới với Form gửi tin nhắn phản hồi nhanh.</p>
+            <p><strong>Mạng xã hội & Mã nguồn:</strong> Kênh GitHub, LinkedIn, Email liên hệ cá nhân <code>pikalongchen@gmail.com</code> và liên kết trực tiếp giữa Website Cá Nhân và Website B787-9.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-4">
+        <button class="btn btn-primary glow-effect" id="copyProductThinkingBtn">
+          <i class="fa-solid fa-copy"></i> Sao chép toàn bộ Câu trả lời Product Thinking (Để dán vào Simba)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Liên hệ & Người xem có thể tìm hiểu thêm về em ở đâu -->
+  <section class="contact reveal" id="contact">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-envelope-open-text"></i> TIÊU CHÍ 4 CỦA BÀI TẬP</span>
+        <h2 class="section-title">Người Xem Có Thể Tìm Hiểu Thêm Về Em Ở Đâu?</h2>
+        <p class="section-desc">Hãy gửi lời nhắn, góp ý hoặc kết nối với em qua các kênh thông tin bên dưới nhé!</p>
+      </div>
+      
+      <div class="contact-wrapper">
+        <div class="contact-info">
+          <h3 class="contact-info-heading">
+            Rất vui được kết nối cùng thầy cô &amp; các bạn!
+          </h3>
+          <p class="contact-info-p">
+            Em luôn sẵn sàng lắng nghe mọi nhận xét để hoàn thiện website và học hỏi thêm nhiều kiến thức bổ ích về lập trình cũng như công nghệ vũ trụ hàng không.
+          </p>
+          
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon bg-cyan-soft text-cyan"><i class="fa-solid fa-envelope"></i></div>
+              <div class="contact-text">
+                <h4>Email học tập</h4>
+                <p>pikalongchen@gmail.com</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon bg-gold-soft text-gold"><i class="fa-solid fa-school"></i></div>
+              <div class="contact-text">
+                <h4>Trường học</h4>
+                <p>THCS Linh Đàm, Hoàng Mai, Hà Nội</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon bg-violet-soft text-violet"><i class="fa-solid fa-plane-shield"></i></div>
+              <div class="contact-text">
+                <h4>Dự án nổi bật</h4>
+                <p><a href="b787-9-vietnam-airlines/index.html" target="_blank" style="color: #38bdf8; text-decoration: underline; font-weight: 700;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Web Khám Phá B787 Vui Nhộn 🚀</a></p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="social-links-modern">
+            <a href="https://github.com" target="_blank" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://linkedin.com" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://facebook.com" target="_blank" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="mailto:pikalongchen@gmail.com" class="social-btn" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+          </div>
+        </div>
+        
+        <div class="glass-card contact-form-card">
+          <h4 class="form-card-title">
+            <i class="fa-regular fa-paper-plane text-cyan"></i> Gửi Lời Nhắn Trực Tiếp Cho Em
+          </h4>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name" class="form-label">Họ và tên của bạn</label>
+              <input type="text" id="name" name="name" class="form-control" placeholder="Thầy cô / Bạn bè..." required>
+            </div>
+            <div class="form-group">
+              <label for="email" class="form-label">Địa chỉ email</label>
+              <input type="email" id="email" name="email" class="form-control" placeholder="email@domain.com" required>
+            </div>
+            <div class="form-group">
+              <label for="subject" class="form-label">Chủ đề</label>
+              <input type="text" id="subject" name="subject" class="form-control" placeholder="Góp ý bài tập / Nhận xét dự án B787-9..." required>
+            </div>
+            <div class="form-group">
+              <label for="message" class="form-label">Nội dung tin nhắn</label>
+              <textarea id="message" name="message" class="form-control" rows="4" placeholder="Nhập lời nhắn hoặc nhận xét của bạn tại đây..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+              Gửi tin nhắn <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal: Quick 8-Parts Viewer Popup -->
+  <div class="parts-modal-backdrop" id="partsModalBackdrop">
+    <div class="parts-modal-box glass-card">
+      <div class="parts-modal-header">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-plane-circle-check text-gold"></i>
+          <h3 style="font-family: var(--font-title); font-size: 1.3rem;">Bóc Tách 8 Bộ Phận Kỹ Thuật Boeing 787-9</h3>
+        </div>
+        <button class="close-modal-btn" id="closePartsModalBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="parts-tabs-row" id="partsTabsRow">
+        <button class="part-tab-btn active" data-part="radome">1. Mũi Radar</button>
+        <button class="part-tab-btn" data-part="pitot">2. Ống Pitot</button>
+        <button class="part-tab-btn" data-part="cockpit">3. Buồng Lái</button>
+        <button class="part-tab-btn" data-part="engines">4. Động Cơ GEnx</button>
+        <button class="part-tab-btn" data-part="wings">5. Cánh Vát</button>
+        <button class="part-tab-btn" data-part="gear">6. Càng Đáp</button>
+        <button class="part-tab-btn" data-part="apu">7. APU Đuôi</button>
+        <button class="part-tab-btn" data-part="rudder">8. Bánh Lái Đuôi</button>
+      </div>
+
+      <div class="parts-tab-content-area" id="partsTabContent">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <div class="parts-modal-footer">
+        <a href="b787-9-vietnam-airlines/index.html" target="_blank" class="btn btn-primary">
+          <i class="fa-solid fa-up-right-from-square"></i> Mở Web Khám Phá B787 Vui Nhộn 🚀
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Quick Simba Fast-Submit Popup -->
+  <div class="simba-modal-backdrop" id="simbaModalBackdrop">
+    <div class="simba-modal-box glass-card">
+      <div class="simba-modal-header">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-box-archive text-gold"></i>
+          <h3 style="font-family: var(--font-title); font-size: 1.35rem;">Bản Nộp Bài Nhanh Trên Simba</h3>
+        </div>
+        <button class="close-modal-btn" id="closeSimbaModalBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="simba-modal-body">
+        <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem;">
+          Bạn có thể nhấn nút sao chép bên dưới để lấy nội dung bài làm hoàn chỉnh nộp trực tiếp lên hệ thống Simba:
+        </p>
+
+        <div class="simba-copy-box">
+          <textarea id="simbaCopyTextarea" readonly class="simba-textarea" rows="10"></textarea>
+        </div>
+      </div>
+
+      <div class="simba-modal-footer">
+        <button class="btn btn-primary" id="copySimbaContentBtn">
+          <i class="fa-solid fa-copy"></i> Sao Chép Toàn Bộ (1-Click Copy)
+        </button>
+        <button class="btn btn-outline" id="closeSimbaModalBtn2">
+          Đóng
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <p>&copy; 2026 <strong>Phúc Khánh</strong> - Bài tập Website Cá Nhân (Simba MindX Assignment).</p>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">Tích hợp dự án Flagship: <em>Boeing 787-9 Dreamliner Aircraft Parts Website</em>.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#home">Lên đầu trang <i class="fa-solid fa-arrow-up"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Success Popup -->
+  <div class="toast" id="toast">
+    <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
+    <div>
+      <h4 style="font-weight: 600; font-size: 0.95rem; color: white;" id="toastTitle">Thao tác thành công!</h4>
+      <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.15rem;" id="toastDesc">Nội dung đã được xử lý.</p>
+    </div>
+  </div>
+
+  <!-- Custom Javascript -->
+  <script src="script.js?v=20260902_0807"></script>
+</body>
+</html>
