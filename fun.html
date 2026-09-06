@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boeing 787 Fun Hub ✈️ | Vùng Trời Trò Chơi & Đố Vui Hài Hước</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="fun-styles.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            vna: {
+              teal: '#005f63',
+              tealDark: '#004245',
+              tealLight: '#008f95',
+              gold: '#e5a919',
+              goldLight: '#fcd34d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950">
+
+  <!-- ================= TOP NAVIGATION BAR ================= -->
+  <header class="bg-slate-900/90 border-b border-slate-800 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-vna-teal to-cyan-500 flex items-center justify-center shadow-lg shadow-teal-500/20 group-hover:scale-110 transition-transform">
+          <i class="fa-solid fa-gamepad text-vna-goldLight text-xl"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-fun text-xl font-bold tracking-wide text-white">787 FUN ARCADE</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400 text-slate-950 uppercase tracking-wider">Trò Chơi & Đố Vui</span>
+          </div>
+          <span class="text-xs text-slate-400 font-medium">Giải Trí Hàng Không Siêu Hài Hước</span>
+        </div>
+      </a>
+
+      <!-- Nav Links -->
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold">
+        <a href="#games-hub" class="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-gamepad text-amber-400"></i> Khu 3 Mini-Games
+        </a>
+        <a href="#lucky-wheel" class="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-dharmachakra text-pink-400"></i> Vòng Quay May Mắn
+        </a>
+        <a href="#seat-simulator" class="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-couch text-cyan-400"></i> Ghế Ngồi Hài Hước
+        </a>
+        <a href="#quiz-hub" class="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-brain text-yellow-400"></i> Trung Tâm Đố Vui
+        </a>
+        <a href="#boarding-pass" class="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-ticket text-emerald-400"></i> In Thẻ Bay
+        </a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <button class="btn-toggle-sound px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-amber-400 font-bold text-xs flex items-center gap-2 transition-all shadow-sm">
+          <i class="fa-solid fa-volume-high mute-icon"></i>
+          <span class="hidden sm:inline mute-text">Âm Thanh</span>
+        </button>
+
+        <a href="../b787-9-vietnam-airlines/index.html" class="px-4 py-2 rounded-xl bg-vna-teal hover:bg-vna-tealLight text-white font-bold text-xs flex items-center gap-2 transition-all shadow-md shadow-teal-900/40 border border-teal-400/30 hover:scale-105" title="Xem bản phân tích cấu tạo và khí động học kỹ thuật">
+          <i class="fa-solid fa-microchip"></i>
+          <span class="hidden md:inline">Bản Kỹ Thuật</span>
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative overflow-hidden py-12 md:py-16 bg-sky-gradient border-b border-slate-800 text-center space-y-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-5">
+      
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400/15 border border-amber-400/40 text-amber-300 text-xs font-bold uppercase tracking-wider">
+        <i class="fa-solid fa-fire text-amber-400"></i> 100% Vui Nhộn • Không Cần Kiến Thức Kỹ Thuật
+      </div>
+
+      <h1 class="font-fun text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight max-w-3xl mx-auto">
+        Vùng Trời Trò Chơi & Đố Vui <span class="bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-500">Boeing 787</span> ✈️🎮
+      </h1>
+
+      <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+        Thoải mái tận hưởng 3 mini-game cực cuốn, quay vòng quay nhân phẩm cơ trưởng, bấm chuông gọi mì tôm trên ghế hành khách và giải mã các câu đố cười ra nước mắt!
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <a href="#games-hub" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-amber-500/30 hover:scale-105 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-gamepad text-lg"></i> Chơi 3 Mini-Games
+        </a>
+        <a href="#lucky-wheel" class="px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-pink-500/40 text-pink-300 font-bold text-xs sm:text-sm tracking-wide transition-all flex items-center gap-2">
+          <i class="fa-solid fa-dharmachakra"></i> Vòng Quay May Mắn
+        </a>
+        <a href="#seat-simulator" class="px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-cyan-500/40 text-cyan-300 font-bold text-xs sm:text-sm tracking-wide transition-all flex items-center gap-2">
+          <i class="fa-solid fa-couch"></i> Nghịch Ghế Máy Bay
+        </a>
+        <a href="#quiz-hub" class="px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-yellow-500/40 text-yellow-300 font-bold text-xs sm:text-sm tracking-wide transition-all flex items-center gap-2">
+          <i class="fa-solid fa-brain"></i> Giải Đố Hài Hước
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SECTION 1: 3 MINI-GAMES ARCADE CENTER ================= -->
+  <section id="games-hub" class="py-16 bg-slate-950 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-8 space-y-3">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-400/10 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+          <i class="fa-solid fa-gamepad"></i> Trung Tâm Trò Chơi
+        </div>
+        <h2 class="font-fun text-3xl sm:text-4xl font-extrabold text-white">Khu 3 Mini-Games Hàng Không Siêu Cuốn 🕹️</h2>
+        <p class="text-slate-400 text-sm sm:text-base">
+          Chọn trò chơi yêu thích bên dưới để trổ tài phản xạ và rinh điểm kỷ lục!
+        </p>
+      </div>
+
+      <!-- 3-Tab Game Switcher -->
+      <div class="flex flex-wrap justify-center gap-3 mb-8">
+        <button id="tab-btn-flight" class="px-4 sm:px-5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider shadow-md flex items-center gap-2 transition-all">
+          <i class="fa-solid fa-plane-up"></i> Game 1: Lái 787 Lượn Mây
+        </button>
+        <button id="tab-btn-snack" class="px-4 sm:px-5 py-2.5 rounded-xl bg-slate-900 text-slate-300 font-bold text-xs uppercase tracking-wider hover:bg-slate-800 flex items-center gap-2 transition-all">
+          <i class="fa-solid fa-bowl-food"></i> Game 2: Hứng Đồ Ăn Cabin
+        </button>
+        <button id="tab-btn-flappy" class="px-4 sm:px-5 py-2.5 rounded-xl bg-slate-900 text-slate-300 font-bold text-xs uppercase tracking-wider hover:bg-slate-800 flex items-center gap-2 transition-all">
+          <i class="fa-solid fa-dove"></i> Game 3: Flappy Dreamliner
+        </button>
+      </div>
+
+      <!-- ================= GAME 1: SKY FLIGHT RUNNER ================= -->
+      <div id="tab-game-flight" class="max-w-4xl mx-auto bg-slate-900 p-4 sm:p-6 rounded-3xl border border-slate-800 shadow-2xl relative active-game-tab">
+        
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-4 text-center">
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+            <div class="text-[10px] text-slate-400 font-bold uppercase">Độ Cao (ALT)</div>
+            <div id="hud-altitude" class="text-sm sm:text-base font-extrabold font-tech text-cyan-400">0 FT</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+            <div class="text-[10px] text-slate-400 font-bold uppercase">Tốc Độ (SPD)</div>
+            <div id="hud-speed" class="text-sm sm:text-base font-extrabold font-tech text-amber-400">0 KTS</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+            <div class="text-[10px] text-slate-400 font-bold uppercase">Sen Vàng</div>
+            <div id="hud-lotus" class="text-sm sm:text-base font-extrabold font-tech text-yellow-400">0</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+            <div class="text-[10px] text-slate-400 font-bold uppercase">Điểm Số</div>
+            <div id="hud-score" class="text-sm sm:text-base font-extrabold font-tech text-emerald-400">0</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 col-span-2 sm:col-span-1">
+            <div class="text-[10px] text-slate-400 font-bold uppercase">Càng Đáp (GEAR)</div>
+            <div id="hud-gear" class="text-xs sm:text-sm font-extrabold font-tech text-emerald-400">HẠ CÀNG (DOWN)</div>
+          </div>
+        </div>
+
+        <div class="w-full h-2 bg-slate-950 rounded-full overflow-hidden mb-4 border border-slate-800">
+          <div id="hud-progress" class="h-full bg-gradient-to-r from-amber-500 to-emerald-400 w-0 transition-all duration-300"></div>
+        </div>
+
+        <div class="relative w-full aspect-[16/9] sm:aspect-[20/10] overflow-hidden rounded-2xl border border-slate-800">
+          <canvas id="game-canvas" class="w-full h-full block"></canvas>
+
+          <div id="game-overlay-menu" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center space-y-4">
+            <div class="w-16 h-16 rounded-3xl bg-amber-500/20 text-amber-400 text-3xl flex items-center justify-center border border-amber-400/40">
+              ✈️
+            </div>
+            <h3 class="font-fun text-2xl sm:text-3xl font-extrabold text-white">Sẵn Sàng Cất Cánh!</h3>
+            <p class="text-slate-300 text-sm max-w-md">
+              Dùng phím <kbd class="px-2 py-1 bg-slate-800 rounded font-mono text-amber-400">W / Mũi Lên</kbd> để ngửa mũi bay lên, <kbd class="px-2 py-1 bg-slate-800 rounded font-mono text-amber-400">Space</kbd> để tăng tốc, và phím <kbd class="px-2 py-1 bg-slate-800 rounded font-mono text-amber-400">G</kbd> để thu/thả càng đáp!
+            </p>
+            <button id="game-btn-start" class="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg shadow-amber-500/30 hover:scale-105 transition-transform flex items-center gap-2">
+              <i class="fa-solid fa-play"></i> Bắt Đầu Chuyến Bay
+            </button>
+          </div>
+
+          <div id="game-overlay-end" class="absolute inset-0 bg-slate-950/85 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center space-y-4 hidden">
+            <div id="game-end-stars" class="text-3xl tracking-widest text-amber-400">⭐⭐⭐</div>
+            <h3 id="game-end-title" class="font-fun text-2xl sm:text-3xl font-extrabold text-white">🏆 BÀN TAY VÀNG LÀNG HẠ CÁNH!</h3>
+            <div id="game-end-score" class="text-2xl font-black font-tech text-emerald-400">1,250 Điểm</div>
+            <p id="game-end-desc" class="text-slate-300 text-sm max-w-md">
+              Tuyệt đỉnh! Bạn đã cất cánh và tiếp đất êm như nhung!
+            </p>
+            <button id="game-btn-restart" class="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-sm uppercase tracking-wider hover:scale-105 transition-transform flex items-center gap-2 shadow-lg shadow-amber-500/30">
+              <i class="fa-solid fa-rotate-right"></i> Bay Thêm Chuyến Nữa
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-4 p-3 rounded-xl bg-slate-950 border border-slate-800 text-center">
+          <span id="hud-guide-text" class="text-xs sm:text-sm font-bold text-amber-300">
+            🚀 Bấm nút Bắt Đầu Chuyến Bay để khởi động động cơ phản lực!
+          </span>
+        </div>
+
+        <div class="grid grid-cols-4 gap-2 mt-4 pt-2">
+          <button id="game-btn-up" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-amber-500 active:text-slate-950 font-bold text-xs flex flex-col items-center justify-center gap-1">
+            <i class="fa-solid fa-arrow-up text-amber-400"></i>
+            <span>Mũi Lên (W)</span>
+          </button>
+          <button id="game-btn-down" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-amber-500 active:text-slate-950 font-bold text-xs flex flex-col items-center justify-center gap-1">
+            <i class="fa-solid fa-arrow-down text-cyan-400"></i>
+            <span>Mũi Xuống (S)</span>
+          </button>
+          <button id="game-btn-boost" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-emerald-500 active:text-slate-950 font-bold text-xs flex flex-col items-center justify-center gap-1">
+            <i class="fa-solid fa-bolt text-yellow-400"></i>
+            <span>Tăng Tốc</span>
+          </button>
+          <button id="game-btn-gear" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-cyan-500 active:text-slate-950 font-bold text-xs flex flex-col items-center justify-center gap-1">
+            <i class="fa-solid fa-circle-notch text-emerald-400"></i>
+            <span>Thu/Hạ Càng (G)</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ================= GAME 2: CABIN SNACK RUSH ================= -->
+      <div id="tab-game-snack" class="max-w-4xl mx-auto bg-slate-900 p-4 sm:p-6 rounded-3xl border border-slate-800 shadow-2xl relative hidden">
+        
+        <div class="grid grid-cols-2 gap-3 mb-4 text-center">
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+            <div class="text-[10px] text-slate-400 font-bold uppercase">Thời Gian Còn Lại</div>
+            <div id="snack-hud-time" class="text-base sm:text-lg font-extrabold font-tech text-cyan-400">35s</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+            <div class="text-[10px] text-slate-400 font-bold uppercase">Điểm Ăn Vặt</div>
+            <div id="snack-hud-score" class="text-base sm:text-lg font-extrabold font-tech text-amber-400">0</div>
+          </div>
+        </div>
+
+        <div class="relative w-full aspect-[16/9] sm:aspect-[20/10] overflow-hidden rounded-2xl border border-slate-800">
+          <canvas id="snack-canvas" class="w-full h-full block"></canvas>
+
+          <div id="snack-overlay-menu" class="absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center space-y-4">
+            <div class="w-16 h-16 rounded-3xl bg-pink-500/20 text-pink-400 text-3xl flex items-center justify-center border border-pink-400/40">
+              🧋
+            </div>
+            <h3 class="font-fun text-2xl sm:text-3xl font-extrabold text-white">Hứng Đồ Ăn Cabin Siêu Tốc!</h3>
+            <p class="text-slate-300 text-sm max-w-md">
+              Di chuyển xe đẩy hứng Trà Sữa 🧋 (+25đ), Mì Tôm 🍜 (+35đ), Bánh Mì 🥖 (+20đ). Né vỏ chuối 🍌 và cốc cà phê đổ ☕ nha!
+            </p>
+            <button id="snack-btn-start" class="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 to-amber-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg hover:scale-105 transition-transform flex items-center gap-2">
+              <i class="fa-solid fa-play"></i> Bắt Đầu Hứng Đồ Ăn!
+            </button>
+          </div>
+
+          <div id="snack-overlay-end" class="absolute inset-0 bg-slate-950/85 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center space-y-4 hidden">
+            <div class="text-4xl">🎉</div>
+            <h3 id="snack-end-title" class="font-fun text-2xl sm:text-3xl font-extrabold text-white">🏆 HOÀN THÀNH PHỤC VỤ!</h3>
+            <div id="snack-end-score" class="text-3xl font-black font-tech text-amber-400">350 Điểm</div>
+            <button id="snack-btn-restart" class="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-sm uppercase tracking-wider hover:scale-105 transition-transform">
+              <i class="fa-solid fa-rotate-right"></i> Chơi Lại Vòng Khác
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mt-4 pt-2">
+          <button id="snack-btn-left" class="p-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-amber-500 active:text-slate-950 font-bold text-xs flex items-center justify-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> Sang Trái (A / Phím Trái)
+          </button>
+          <button id="snack-btn-right" class="p-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 active:bg-amber-500 active:text-slate-950 font-bold text-xs flex items-center justify-center gap-2">
+            Sang Phải (D / Phím Phải) <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ================= GAME 3: FLAPPY DREAMLINER ================= -->
+      <div id="tab-game-flappy" class="max-w-4xl mx-auto bg-slate-900 p-4 sm:p-6 rounded-3xl border border-slate-800 shadow-2xl relative hidden">
+        
+        <div class="flex items-center justify-between mb-4 px-2">
+          <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider">Flappy 787: Bấm Space hoặc chạm màn hình để vỗ cánh!</span>
+          <div class="text-sm font-extrabold font-tech text-amber-400">Điểm: <span id="flappy-hud-score">0</span></div>
+        </div>
+
+        <div class="relative w-full aspect-[16/9] sm:aspect-[20/10] overflow-hidden rounded-2xl border border-slate-800">
+          <canvas id="flappy-canvas" class="w-full h-full block"></canvas>
+
+          <div id="flappy-overlay-menu" class="absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center space-y-4">
+            <div class="w-16 h-16 rounded-3xl bg-cyan-500/20 text-cyan-400 text-3xl flex items-center justify-center border border-cyan-400/40">
+              ✈️
+            </div>
+            <h3 class="font-fun text-2xl sm:text-3xl font-extrabold text-white">Flappy Dreamliner!</h3>
+            <p class="text-slate-300 text-sm max-w-md">
+              Chạm vào màn hình hoặc bấm phím <kbd class="px-2 py-1 bg-slate-800 rounded font-mono text-amber-400">Space</kbd> để vỗ cánh bay luồn qua các cột mây bão!
+            </p>
+            <button id="flappy-btn-start" class="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-amber-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg hover:scale-105 transition-transform flex items-center gap-2">
+              <i class="fa-solid fa-play"></i> Vỗ Cánh Bay Ngay!
+            </button>
+          </div>
+
+          <div id="flappy-overlay-end" class="absolute inset-0 bg-slate-950/85 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center space-y-4 hidden">
+            <div class="text-4xl">💥</div>
+            <h3 class="font-fun text-2xl sm:text-3xl font-extrabold text-white">CHẠM CỘT MÂY BÃO RỒI!</h3>
+            <div class="text-2xl font-black font-tech text-amber-400">Điểm: <span id="flappy-end-score">0</span></div>
+            <div id="flappy-end-high" class="text-xs font-bold text-slate-400">Kỷ lục: 0</div>
+            <button id="flappy-btn-restart" class="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-sm uppercase tracking-wider hover:scale-105 transition-transform">
+              <i class="fa-solid fa-rotate-right"></i> Bay Lại Lần Nữa
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-2 flex justify-center">
+          <button id="flappy-btn-jump" class="w-full sm:w-auto px-10 py-3.5 rounded-xl bg-cyan-500 text-slate-950 font-black text-sm uppercase tracking-wider shadow-md hover:scale-105 transition-transform">
+            🚀 VỖ CÁNH NẢY LÊN (SPACE / CHẠM)
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SECTION 2: LUCKY SPIN WHEEL ================= -->
+  <section id="lucky-wheel" class="py-16 bg-slate-900 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-10 space-y-3">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-pink-400/10 text-pink-400 text-xs font-bold uppercase tracking-wider">
+          <i class="fa-solid fa-dharmachakra"></i> Thử Vận May
+        </div>
+        <h2 class="font-fun text-3xl sm:text-4xl font-extrabold text-white">Vòng Quay Nhân Phẩm Cơ Trưởng 🎰</h2>
+        <p class="text-slate-400 text-sm sm:text-base">
+          Quay để xem hôm nay bạn sẽ nhận được danh hiệu bá đạo nào từ phi đội Boeing 787!
+        </p>
+      </div>
+
+      <div class="max-w-md mx-auto bg-slate-950 p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl space-y-6 text-center">
+        
+        <div class="wheel-container">
+          <div class="wheel-pointer"></div>
+          <canvas id="wheel-canvas" class="wheel-canvas"></canvas>
+        </div>
+
+        <div id="wheel-prize-result" class="min-h-[70px] flex items-center justify-center">
+          <span class="text-xs text-slate-400 font-semibold">Bấm nút bên dưới để thử độ may mắn!</span>
+        </div>
+
+        <button id="btn-spin-wheel" class="w-full py-4 rounded-2xl bg-gradient-to-r from-pink-500 via-amber-400 to-yellow-400 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg shadow-pink-500/20 hover:scale-105 transition-transform flex items-center justify-center gap-2">
+          <i class="fa-solid fa-dharmachakra animate-spin"></i> QUAY VÒNG MAY MẮN NGAY!
+        </button>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SECTION 3: PASSENGER SEAT SIMULATOR ================= -->
+  <section id="seat-simulator" class="py-16 bg-slate-950 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-10 space-y-3">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-400/10 text-cyan-400 text-xs font-bold uppercase tracking-wider">
+          <i class="fa-solid fa-couch"></i> Tương Tác Cực Hài
+        </div>
+        <h2 class="font-fun text-3xl sm:text-4xl font-extrabold text-white">Bàn Nghịch Ghế Hành Khách 💺</h2>
+        <p class="text-slate-400 text-sm sm:text-base">
+          Mô phỏng trải nghiệm ngồi trên khoang khách 787 với các nút bấm nghịch ngợm khiến cả cabin cười nghiêng ngả!
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <div class="lg:col-span-6 bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-6 shadow-xl relative overflow-hidden">
+          
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">Ghế Ngồi 01A - Dreamliner Cabin</span>
+            <span class="text-xs text-slate-400">Live Simulator</span>
+          </div>
+
+          <div class="h-64 rounded-2xl bg-gradient-to-b from-slate-950 to-slate-900 border border-slate-700 relative flex items-center justify-center p-6 overflow-hidden">
+            
+            <div class="absolute top-4 right-6 w-16 h-24 rounded-full border-4 border-slate-700 bg-sky-400 overflow-hidden shadow-inner">
+              <div id="seat-window-glass" class="dimmable-window w-full h-full bg-transparent flex items-center justify-center text-white/50 text-[10px] font-bold">
+                MÂY
+              </div>
+            </div>
+
+            <div id="seat-fan-wind-lines" class="absolute top-2 left-1/3 space-y-1 hidden">
+              <div class="w-12 h-0.5 bg-cyan-300/80 rounded-full wind-line"></div>
+              <div class="w-16 h-0.5 bg-cyan-300/60 rounded-full wind-line" style="animation-delay: 0.2s"></div>
+              <div class="w-10 h-0.5 bg-cyan-300/80 rounded-full wind-line" style="animation-delay: 0.4s"></div>
+            </div>
+
+            <div class="relative z-10 flex items-center gap-4">
+              <div id="seat-backrest-el" class="seat-backrest w-12 h-36 bg-vna-teal rounded-t-2xl border-2 border-amber-400 flex flex-col items-center justify-between p-2 shadow-xl">
+                <div class="w-8 h-8 rounded-full bg-amber-400/30 flex items-center justify-center text-xs">🪷</div>
+                <div class="text-[9px] font-bold text-slate-100 uppercase">787</div>
+              </div>
+              <div class="w-24 h-10 bg-vna-tealDark rounded-r-xl border-b-4 border-slate-900 shadow-md"></div>
+            </div>
+
+          </div>
+
+          <div id="seat-food-tray-box" class="min-h-[60px]">
+            <div class="text-center text-xs text-slate-500 font-medium py-2">
+              Bấm chuông gọi tiếp viên để nhận đồ ăn/thức uống thơm ngon!
+            </div>
+          </div>
+
+          <div id="seat-rear-passenger-meme" class="text-xs text-slate-400 text-center font-medium">
+            Hành khách ghế sau đang ngồi thoải mái.
+          </div>
+
+        </div>
+
+        <div class="lg:col-span-6 space-y-4">
+          
+          <button id="seat-btn-call" class="w-full p-4 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left flex items-center justify-between group hover:border-emerald-400 transition-all">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
+                🛎️
+              </div>
+              <div>
+                <div class="font-bold text-white text-sm">Bấm Chuông Gọi Tiếp Viên</div>
+                <div class="text-xs text-slate-400">Ting-tong nhận ngay món ăn nóng hổi ngẫu nhiên</div>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-emerald-400"></i>
+          </button>
+
+          <button id="seat-btn-recline" class="w-full p-4 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left flex items-center justify-between group hover:border-red-400 transition-all">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center text-xl">
+                💺
+              </div>
+              <div>
+                <div class="font-bold text-white text-sm">Ngả Ghế Hết Cỡ Ra Sau</div>
+                <div class="text-xs text-slate-400">Xem phản ứng hài hước của người ngồi sau</div>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-red-400"></i>
+          </button>
+
+          <button id="seat-btn-fan" class="w-full p-4 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left flex items-center justify-between group hover:border-cyan-400 transition-all">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl">
+                💨
+              </div>
+              <div>
+                <div class="font-bold text-white text-sm">Bật Quạt Gió Mát Lạnh</div>
+                <div class="text-xs text-slate-400">Thổi vù vù làm bay tóc mát rượi</div>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-cyan-400"></i>
+          </button>
+
+          <button id="seat-btn-window" class="w-full p-4 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left flex items-center justify-between group hover:border-amber-400 transition-all">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl">
+                🕶️
+              </div>
+              <div>
+                <div class="font-bold text-white text-sm">Cửa Sổ Kính Điện Ma Thuật</div>
+                <div class="text-xs text-slate-400">Đổi màu mờ dần chống chói chỉ với 1 chạm</div>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-amber-400"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SECTION 4: EXPANDED QUIZ HUB ================= -->
+  <section id="quiz-hub" class="py-16 bg-slate-900 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-10 space-y-3">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-yellow-400/10 text-yellow-400 text-xs font-bold uppercase tracking-wider">
+          <i class="fa-solid fa-brain"></i> Trung Tâm Đố Vui
+        </div>
+        <h2 class="font-fun text-3xl sm:text-4xl font-extrabold text-white">Góc Đố Vui Hàng Không Hài Hước 🧠🎉</h2>
+        <p class="text-slate-400 text-sm sm:text-base">
+          3 chế độ đố vui đa dạng: Đố bựa sự thật, Bói tính cách hành khách, và Nghe âm thanh đoán buồng lái!
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Mode 1: Funny Rumors -->
+        <div class="bg-slate-950 p-6 rounded-3xl border border-slate-800 flex flex-col justify-between space-y-4 shadow-xl">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-[11px] font-bold">Chế Độ 1: Đố Bựa</span>
+              <span id="rumor-prog-text" class="text-xs font-bold text-slate-400">Câu 1/5</span>
+            </div>
+            <h3 id="rumor-q-title" class="font-fun text-base font-bold text-white min-h-[48px]">
+              Câu hỏi đang tải...
+            </h3>
+            <div id="rumor-opts-box" class="space-y-2"></div>
+            <div id="rumor-feedback" class="hidden text-xs p-3 rounded-xl font-semibold"></div>
+          </div>
+
+          <div class="pt-2 flex justify-end">
+            <button id="rumor-btn-next" class="hidden px-5 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider">
+              Câu Tiếp <i class="fa-solid fa-arrow-right ml-1"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mode 2: Passenger Persona -->
+        <div class="bg-slate-950 p-6 rounded-3xl border border-slate-800 flex flex-col justify-between space-y-4 shadow-xl">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[11px] font-bold">Chế Độ 2: Bói Tính Cách</span>
+              <span class="text-xs font-bold text-pink-400">Khám Phá Bản Thân</span>
+            </div>
+            <h3 id="persona-q-title" class="font-fun text-base font-bold text-white min-h-[48px]">
+              Bạn là kiểu hành khách nào?
+            </h3>
+            <div id="persona-opts-box" class="space-y-2"></div>
+            <div id="persona-result-box"></div>
+          </div>
+        </div>
+
+        <!-- Mode 3: Sound Guess Quiz -->
+        <div class="bg-slate-950 p-6 rounded-3xl border border-slate-800 flex flex-col justify-between space-y-4 shadow-xl">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-400 text-[11px] font-bold">Chế Độ 3: Đoán Âm Thanh</span>
+              <span class="text-xs font-bold text-cyan-400">Đôi Tai Vàng</span>
+            </div>
+            
+            <button id="btn-play-quiz-sound" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition-transform shadow-md">
+              <i class="fa-solid fa-volume-high text-base"></i> BẤM ĐỂ NGHE ÂM THANH
+            </button>
+
+            <h3 id="sound-q-title" class="font-fun text-base font-bold text-white min-h-[48px]">
+              Âm thanh vừa phát ra là gì?
+            </h3>
+
+            <div id="sound-opts-box" class="space-y-2"></div>
+            <div id="sound-feedback" class="hidden text-xs p-2 rounded-lg font-bold"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SECTION 5: BOARDING PASS GENERATOR ================= -->
+  <section id="boarding-pass" class="py-16 bg-slate-950 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-10 space-y-3">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-400/10 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+          <i class="fa-solid fa-ticket"></i> Lưu Niệm
+        </div>
+        <h2 class="font-fun text-3xl sm:text-4xl font-extrabold text-white">In Thẻ Bay "Cơ Trưởng Tập Sự" 🎫</h2>
+        <p class="text-slate-400 text-sm sm:text-base">
+          Nhập tên để sở hữu ngay chiếc Boarding Pass độc quyền kỷ niệm chuyến bay vui nhộn!
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <div class="lg:col-span-5 bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-4 shadow-xl">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase mb-1.5">Họ & Tên Của Bạn</label>
+            <input id="pass-input-name" type="text" value="NGUYỄN VĂN AN" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white font-bold text-sm focus:outline-none focus:border-amber-400">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase mb-1.5">Cấp Bậc Hàng Không</label>
+            <select id="pass-select-role" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white font-bold text-sm focus:outline-none focus:border-amber-400">
+              <option value="CƠ TRƯỞNG TẬP SỰ ⭐⭐⭐">Cơ Trưởng Tập Sự ⭐⭐⭐</option>
+              <option value="PHI CÔNG NHÍ TINH NGHỊCH 🧸">Phi Công Nhí Tinh Nghịch 🧸</option>
+              <option value="THÁNH ĂN VẶT TRÊN MÂY 🧋">Thánh Ăn Vặt Trên Mây 🧋</option>
+              <option value="HÀNH KHÁCH VIP 🥂">Hành Khách VIP 🥂</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase mb-1.5">Điểm Đến</label>
+            <select id="pass-select-dest" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white font-bold text-sm focus:outline-none focus:border-amber-400">
+              <option value="CDG">PARIS (Pháp) 🥐</option>
+              <option value="HND">TOKYO (Nhật Bản) 🌸</option>
+              <option value="LHR">LONDON (Anh) 🎡</option>
+              <option value="HAN">HÀ NỘI 🏛️</option>
+              <option value="SGN">TP. HỒ CHÍ MINH 🏙️</option>
+              <option value="MOON">MẶT TRĂNG GALAXY 🚀</option>
+            </select>
+          </div>
+
+          <button id="btn-generate-pass" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs uppercase tracking-wider hover:scale-[1.02] transition-transform flex items-center justify-center gap-2 shadow-lg">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> In Thẻ Bay & Bật Chuông!
+          </button>
+        </div>
+
+        <div class="lg:col-span-7 flex justify-center">
+          <div class="boarding-pass w-full max-w-lg p-6 sm:p-8 relative overflow-hidden">
+            <div class="ticket-cutout-left"></div>
+            <div class="ticket-cutout-right"></div>
+
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-4">
+              <div class="flex items-center gap-2.5">
+                <span class="text-2xl">🪷</span>
+                <div>
+                  <div class="font-extrabold text-slate-900 text-base">VIETNAM AIRLINES</div>
+                  <div class="text-[9px] font-bold text-vna-teal uppercase tracking-widest">Boeing 787 Fun Pass</div>
+                </div>
+              </div>
+              <div id="ticket-role-badge" class="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[11px] font-bold border border-amber-300">
+                CƠ TRƯỞNG TẬP SỰ ⭐⭐⭐
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 text-center py-3 my-2 bg-slate-50 rounded-2xl border border-slate-200">
+              <div>
+                <div class="text-[9px] text-slate-400 font-bold uppercase">FROM</div>
+                <div class="text-2xl font-black font-tech text-vna-teal">VNA</div>
+              </div>
+              <div class="flex flex-col items-center justify-center">
+                <i class="fa-solid fa-plane text-amber-500"></i>
+              </div>
+              <div>
+                <div class="text-[9px] text-slate-400 font-bold uppercase">TO</div>
+                <div id="ticket-dest-code" class="text-2xl font-black font-tech text-amber-600">CDG</div>
+                <div id="ticket-dest-city" class="text-[10px] font-semibold text-slate-600 truncate px-1">PARIS (CDG)</div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 pt-3 border-t border-slate-200 text-center">
+              <div>
+                <div class="text-[9px] text-slate-400 font-bold uppercase">Hành Khách</div>
+                <div id="ticket-passenger-name" class="text-xs font-extrabold text-slate-900 truncate">NGUYỄN VĂN AN</div>
+              </div>
+              <div>
+                <div class="text-[9px] text-slate-400 font-bold uppercase">Chuyến Bay</div>
+                <div id="ticket-flight-no" class="text-xs font-extrabold text-slate-900 font-tech">VN-19</div>
+              </div>
+              <div>
+                <div class="text-[9px] text-slate-400 font-bold uppercase">Ghế</div>
+                <div id="ticket-seat-no" class="text-xs font-extrabold text-amber-600 font-tech">01A</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FOOTER & SWITCHER ================= -->
+  <footer class="bg-slate-950 py-10 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+      
+      <div class="p-6 rounded-3xl bg-slate-900 border border-teal-500/30 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div>
+          <h4 class="font-fun text-lg font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-microchip text-amber-400"></i> Muốn xem bản phân tích kỹ thuật chuyên sâu?
+          </h4>
+          <p class="text-slate-300 text-xs">
+            Bao gồm thí nghiệm vô lăng cần lái Yoke, cơ cấu càng hạ cánh thủy lực 3000 PSI, góc lái Rudder và hệ thống cánh tà Flaps!
+          </p>
+        </div>
+
+        <a href="../b787-9-vietnam-airlines/index.html" class="px-5 py-3 rounded-xl bg-vna-gold text-slate-950 font-black text-xs uppercase tracking-wider flex items-center gap-2 hover:scale-105 transition-transform shrink-0">
+          Chuyển Sang Bản Kỹ Thuật <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="text-center text-xs text-slate-500 font-medium">
+        © 2026 Boeing 787 Fun Hub. Sân chơi giải trí và tương tác hàng không dành cho mọi người!
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="game.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

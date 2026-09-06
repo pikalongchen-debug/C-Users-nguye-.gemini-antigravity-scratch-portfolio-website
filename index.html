@@ -1,0 +1,3892 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phúc Khánh | Website Cá Nhân & Boeing 787-9 Aerospace Explorer</title>
+  
+  <!-- SEO & Meta Tags -->
+  <meta name="description" content="Website cá nhân của Phúc Khánh (THCS Linh Đàm) - Đam mê Công nghệ Kỹ thuật Hàng không & Lập trình Web. Khám phá dự án B787-9 Aircraft Parts Explorer, mô phỏng 3 cụm càng đáp 60 FPS, buồng lái ảo HUD và đố vui cấp chứng chỉ.">
+  <meta name="author" content="Phúc Khánh">
+  
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom Stylesheet -->
+  <style>
+/* -------------------------------------------------------------
+   DESIGN SYSTEM & CSS VARIABLES
+   ------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+:root {
+  /* High-Contrast Crisp Colors */
+  --bg-color: #07090e;
+  --bg-dots: rgba(255, 255, 255, 0.03);
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #cbd5e1;
+  
+  --primary: #8b5cf6; /* Violet */
+  --primary-glow: rgba(139, 92, 246, 0.25);
+  --secondary: #38bdf8; /* Bright Cyan */
+  --secondary-glow: rgba(56, 189, 248, 0.25);
+  --accent: #f472b6; /* Pink-rose */
+  
+  --vna-teal: #008286;
+  --vna-gold: #fbbf24;
+  --vna-gold-light: #fef08a;
+  
+  --gradient-text: linear-gradient(135deg, #c4b5fd 0%, #38bdf8 50%, #fde047 100%);
+  --gradient-btn: linear-gradient(135deg, #0284c7 0%, #7c3aed 100%);
+  --gradient-btn-hover: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+  --gradient-gold: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+  
+  /* High-Contrast Glassmorphism */
+  --glass-bg: rgba(9, 15, 28, 0.88);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-border-glow: rgba(56, 189, 248, 0.5);
+  --glass-shadow: 0 20px 50px rgba(0, 0, 0, 0.75);
+  
+  /* Typography */
+  --font-title: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* Layout & Transitions */
+  --max-width: 1240px;
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.2s ease;
+}
+
+/* -------------------------------------------------------------
+   RESET & BASE STYLES
+   ------------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+html {
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -3;
+  background: url('https://raw.githubusercontent.com/pikalongchen-debug/C-Users-nguye-.gemini-antigravity-scratch-portfolio-website/main/images/vietnam_airlines_b787_ocean.jpg') no-repeat center center / cover;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+  pointer-events: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+button, input, textarea {
+  font-family: inherit;
+  outline: none;
+}
+
+li {
+  list-style: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.2);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gradient-btn);
+}
+
+/* -------------------------------------------------------------
+   BACKGROUND PARTICLE CANVAS & GLOW
+   ------------------------------------------------------------- */
+.sky-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.glow-container {
+  display: none;
+}
+
+.glow-orb-3 {
+  position: absolute;
+  top: 60%;
+  left: 40%;
+  width: 30vw;
+  height: 30vw;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.08) 0%, transparent 70%);
+  filter: blur(80px);
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(50px, 40px) scale(1.1); }
+}
+
+.mouse-glow {
+  position: fixed;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.07) 0%, transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  filter: blur(30px);
+}
+
+/* -------------------------------------------------------------
+   CONTAINER & LAYOUT
+   ------------------------------------------------------------- */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: var(--glass-shadow);
+  transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+  border-color: var(--glass-border-glow);
+}
+
+/* -------------------------------------------------------------
+   UTILITIES & TYPOGRAPHY
+   ------------------------------------------------------------- */
+.text-gradient {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-cyan { color: #38bdf8; }
+.text-gold { color: #fbbf24; }
+.text-violet { color: #a78bfa; }
+.text-success { color: #34d399; }
+.mono-text { font-family: var(--font-mono); }
+
+.bg-cyan-soft { background: rgba(56, 189, 248, 0.12); }
+.bg-gold-soft { background: rgba(251, 191, 36, 0.12); }
+.bg-violet-soft { background: rgba(167, 139, 250, 0.12); }
+
+.section-header {
+  margin-bottom: 3.5rem;
+}
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(9, 15, 28, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  padding: 0.4rem 1.1rem;
+  border-radius: 50px;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.85rem;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+.section-title {
+  font-family: var(--font-title);
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+}
+.section-desc {
+  color: #f1f5f9;
+  font-size: 1.05rem;
+  font-weight: 500;
+  max-width: 650px;
+  margin: 0.75rem auto 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+}
+
+/* -------------------------------------------------------------
+   BUTTONS
+   ------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  border: none;
+}
+
+.btn-primary {
+  background: var(--gradient-btn);
+  color: white;
+  box-shadow: 0 4px 18px rgba(2, 132, 199, 0.35);
+}
+.btn-primary:hover {
+  background: var(--gradient-btn-hover);
+  box-shadow: 0 6px 25px rgba(2, 132, 199, 0.55);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(8px);
+}
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(56, 189, 248, 0.5);
+  color: #38bdf8;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: rgba(124, 58, 237, 0.15);
+  color: #c4b5fd;
+  border: 1px solid rgba(124, 58, 237, 0.3);
+}
+.btn-secondary:hover {
+  background: rgba(124, 58, 237, 0.25);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.glow-teal {
+  box-shadow: 0 4px 20px rgba(0, 95, 99, 0.6);
+}
+
+/* -------------------------------------------------------------
+   TELEMETRY TOP BAR
+   ------------------------------------------------------------- */
+.telemetry-bar {
+  background: rgba(7, 9, 14, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.75rem;
+  padding: 0.4rem 0;
+  position: relative;
+  z-index: 101;
+}
+.telemetry-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.telemetry-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulseAnim 2s infinite;
+}
+@keyframes pulseAnim {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.5; }
+}
+.telemetry-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.telemetry-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: var(--transition-fast);
+}
+.telemetry-btn:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+.telemetry-btn.highlight {
+  background: rgba(251, 191, 36, 0.15);
+  border-color: rgba(251, 191, 36, 0.4);
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------
+   NAVIGATION HEADER
+   ------------------------------------------------------------- */
+header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 1rem 0;
+  transition: var(--transition-smooth);
+  background: rgba(7, 9, 14, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+header.scrolled {
+  padding: 0.75rem 0;
+  background: rgba(7, 9, 14, 0.9);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.logo-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+.logo-name {
+  font-family: var(--font-title);
+  font-size: 1.3rem;
+  font-weight: 800;
+  display: block;
+  line-height: 1.1;
+}
+.logo-tag {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.8rem;
+  align-items: center;
+}
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+  padding: 0.3rem 0;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: #38bdf8;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #38bdf8;
+  transition: var(--transition-fast);
+}
+.nav-links a.active::after, .nav-links a:hover::after {
+  width: 100%;
+}
+
+.menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+/* -------------------------------------------------------------
+   HERO SECTION
+   ------------------------------------------------------------- */
+.hero {
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  padding: 4rem 0 3rem;
+  position: relative;
+  border-bottom: 1px solid var(--glass-border);
+}
+.hero-wrapper {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  background: rgba(8, 14, 26, 0.92);
+  border: 1px solid rgba(56, 189, 248, 0.6);
+  color: #38bdf8;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  border-radius: 50px;
+  width: fit-content;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+.hero-subtitle {
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fde047;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+.hero-title {
+  font-family: var(--font-title);
+  font-size: 3.8rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: #ffffff;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.95);
+}
+.hero-role {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f8fafc;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+.hero-description {
+  font-size: 1.08rem;
+  color: #f8fafc;
+  font-weight: 500;
+  line-height: 1.75;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.hero-stats-panel {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 1.35rem;
+  margin-top: 1rem;
+  background: rgba(9, 15, 28, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+.hero-stat-card {
+  display: flex;
+  flex-direction: column;
+}
+.stat-num {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+.stat-sub {
+  font-size: 0.75rem;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+/* Avatar Box */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.avatar-card-container {
+  width: 320px;
+  height: 380px;
+  position: relative;
+}
+.avatar-glow-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #38bdf8, #7c3aed, #fbbf24);
+  z-index: 1;
+  animation: rotateBorder 10s linear infinite;
+}
+@keyframes rotateBorder {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+.avatar-inner-box {
+  position: absolute;
+  inset: 3px;
+  background: #0b0f19;
+  border-radius: 21px;
+  z-index: 2;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+.avatar-flight-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: #fbbf24;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.avatar-core-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(124, 58, 237, 0.2));
+  border: 2px solid rgba(56, 189, 248, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.25);
+}
+.avatar-initials-glow {
+  font-family: var(--font-title);
+  font-size: 3.5rem;
+  font-weight: 900;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.avatar-name {
+  font-family: var(--font-title);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+.avatar-school {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 0.2rem;
+}
+.avatar-badge-list {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.badge-mini {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+}
+
+/* -------------------------------------------------------------
+   ABOUT ME & SKILLS SECTION
+   ------------------------------------------------------------- */
+.about {
+  padding: 6rem 0;
+}
+.about-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+.about-text-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.about-info-card {
+  padding: 2rem;
+}
+.card-icon-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+.about-card-title {
+  font-family: var(--font-title);
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+}
+.about-info-card p {
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  line-height: 1.7;
+  margin-bottom: 0.85rem;
+}
+.about-info-card p:last-child {
+  margin-bottom: 0;
+}
+
+.skills-card-wrap {
+  padding: 2rem;
+  height: 100%;
+}
+.skills-column-title {
+  font-family: var(--font-title);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.skills-grid-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.skill-modern-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.skill-item-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.skill-item-body {
+  flex-grow: 1;
+}
+.skill-name-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.skill-meter {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0.35rem 0;
+}
+.meter-fill {
+  height: 100%;
+  border-radius: 10px;
+}
+.skill-caption {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* -------------------------------------------------------------
+   FEATURED PROJECT SHOWCASE (B787-9)
+   ------------------------------------------------------------- */
+.project-section {
+  padding: 6rem 0;
+}
+.showcase-mega-card {
+  padding: 2.5rem;
+  border-color: rgba(56, 189, 248, 0.25);
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(7, 9, 14, 0.95) 100%);
+}
+.mega-card-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.mega-visual-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.mega-image-container {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+.mega-img {
+  width: 100%;
+  height: 290px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.mega-image-container:hover .mega-img {
+  transform: scale(1.03);
+}
+.mega-overlay-hud {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.hud-indicator {
+  background: rgba(7, 9, 14, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 0.3rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: #fbbf24;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+.aircraft-code {
+  background: rgba(7, 9, 14, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 0.3rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+}
+
+.thumb-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+.thumb-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 0.35rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  transition: var(--transition-fast);
+}
+.thumb-btn img {
+  width: 100%;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.thumb-btn span {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+}
+.thumb-btn.active, .thumb-btn:hover {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+}
+.thumb-btn.active span {
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.specs-metrics-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+.metric-block {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+}
+.m-label {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.m-val {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-top: 0.2rem;
+}
+
+.mega-info-side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.flagship-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #fbbf24;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+.mega-project-title {
+  font-family: var(--font-title);
+  font-size: 2.1rem;
+  font-weight: 900;
+  line-height: 1.25;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+}
+.mega-project-summary {
+  color: #f1f5f9;
+  font-size: 1.02rem;
+  font-weight: 500;
+  line-height: 1.75;
+}
+
+.mega-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.feature-item-row {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+}
+.f-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+.f-title {
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+.f-desc {
+  font-size: 0.92rem;
+  color: #e2e8f0;
+  font-weight: 500;
+  line-height: 1.55;
+  margin-top: 0.2rem;
+}
+.mega-cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+  max-width: 440px;
+}
+.mega-cta-group .btn-primary {
+  background: linear-gradient(135deg, #0284c7 0%, #7c3aed 100%);
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 0.95rem 1.6rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  width: 100%;
+  transition: var(--transition-smooth);
+}
+.mega-cta-group .btn-primary:hover {
+  background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+  box-shadow: 0 8px 25px rgba(14, 165, 233, 0.65);
+  transform: translateY(-2px);
+}
+.mega-cta-group .btn-outline {
+  background: rgba(9, 15, 28, 0.92);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  font-size: 1.02rem;
+  font-weight: 700;
+  padding: 0.9rem 1.6rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  transition: var(--transition-smooth);
+}
+.mega-cta-group .btn-outline:hover {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  transform: translateY(-2px);
+}
+
+/* -------------------------------------------------------------
+   COCKPIT HUD & TELEMETRY SIMULATOR
+   ------------------------------------------------------------- */
+.hud-section {
+  padding: 6rem 0;
+}
+.hud-terminal-card {
+  padding: 2rem;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  background: rgba(7, 9, 14, 0.92);
+  box-shadow: 0 0 40px rgba(56, 189, 248, 0.1);
+}
+.hud-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--glass-border);
+  margin-bottom: 1.5rem;
+}
+.hud-flight-id {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+.hud-status-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.status-blink {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: pulseAnim 1.5s infinite;
+}
+
+.hud-grid-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 2.5rem;
+}
+.hud-instruments {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.instrument-box {
+  background: rgba(9, 15, 28, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+.inst-label {
+  font-size: 0.72rem;
+  color: #cbd5e1;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  display: block;
+}
+.inst-val-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 0.5rem 0;
+}
+.inst-number {
+  font-family: var(--font-title);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+}
+.inst-unit {
+  font-size: 0.75rem;
+  color: #e2e8f0;
+  font-weight: 600;
+}
+.hud-bar-wrap {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.hud-bar-fill {
+  height: 100%;
+  background: var(--gradient-btn);
+  transition: width 0.3s ease;
+}
+
+.hud-controls-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.ctrl-heading {
+  font-family: var(--font-title);
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.control-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.ctrl-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+.ctrl-current-val {
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+.flight-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+}
+.flight-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #38bdf8;
+  cursor: pointer;
+  box-shadow: 0 0 10px #38bdf8;
+}
+.flaps-btn-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+.flaps-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+.flaps-btn.active, .flaps-btn:hover {
+  background: rgba(167, 139, 250, 0.2);
+  border-color: #a78bfa;
+  color: white;
+  font-weight: 600;
+}
+.hud-alert-box {
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  color: #bae6fd;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  line-height: 1.5;
+}
+
+/* -------------------------------------------------------------
+   VIETNAM AIRLINES GLOBAL ROUTES
+   ------------------------------------------------------------- */
+.routes-section {
+  padding: 6rem 0;
+}
+.routes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.route-card {
+  padding: 1.75rem;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.route-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+.route-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+.flight-num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #fbbf24;
+}
+.route-type-badge {
+  font-size: 0.7rem;
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  padding: 0.25rem 0.6rem;
+  border-radius: 50px;
+}
+.route-path {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 0;
+}
+.city-box {
+  display: flex;
+  flex-direction: column;
+}
+.city-code {
+  font-family: var(--font-title);
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+.city-name {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.flight-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  position: relative;
+  width: 140px;
+}
+.flight-line::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: dashed rgba(255, 255, 255, 0.2);
+}
+.plane-fly-anim {
+  color: #38bdf8;
+  font-size: 0.9rem;
+  animation: planeFly 4s ease-in-out infinite;
+}
+@keyframes planeFly {
+  0% { transform: translateX(-30px); }
+  50% { transform: translateX(30px); }
+  100% { transform: translateX(-30px); }
+}
+.flight-duration {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+}
+.route-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  border-top: 1px solid var(--glass-border);
+  padding-top: 1rem;
+  font-size: 0.85rem;
+}
+.r-sub {
+  color: var(--text-muted);
+}
+
+/* -------------------------------------------------------------
+   QUIZ & CERTIFICATE GENERATOR
+   ------------------------------------------------------------- */
+.quiz-section {
+  padding: 6rem 0;
+}
+.quiz-card {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2.5rem;
+}
+.quiz-badge-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(251, 191, 36, 0.15);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  font-size: 2rem;
+  color: #fbbf24;
+}
+.quiz-intro-heading {
+  font-family: var(--font-title);
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.quiz-intro-p {
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 580px;
+  margin: 0 auto 1.5rem;
+  font-size: 0.95rem;
+}
+.quiz-user-input-wrap {
+  max-width: 480px;
+  margin: 0 auto 1.5rem;
+}
+.input-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: var(--text-primary);
+}
+.cert-input-control {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  color: white;
+  font-size: 0.95rem;
+}
+.cert-input-control:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+}
+
+.quiz-progress-wrap {
+  margin-bottom: 1.5rem;
+}
+.progress-info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+#question-number {
+  color: #38bdf8;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.score-tag {
+  color: #fbbf24;
+  font-weight: 600;
+}
+.progress-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--gradient-btn);
+  transition: width 0.4s ease;
+}
+.quiz-img-box {
+  width: 100%;
+  height: 240px;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--glass-border);
+}
+.quiz-img-fluid {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.question-title {
+  font-family: var(--font-title);
+  font-size: 1.25rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+.option-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 0.9rem 1.25rem;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.92rem;
+  transition: var(--transition-smooth);
+}
+.option-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: #38bdf8;
+  transform: translateX(4px);
+}
+.option-btn.correct {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-color: #10b981 !important;
+  color: #34d399 !important;
+}
+.option-btn.wrong {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: #ef4444 !important;
+  color: #f87171 !important;
+}
+.option-btn:disabled {
+  pointer-events: none;
+  opacity: 0.7;
+}
+.option-btn.correct:disabled, .option-btn.wrong:disabled {
+  opacity: 1;
+}
+.quiz-feedback {
+  margin-top: 1.25rem;
+  padding: 0.85rem 1.2rem;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.quiz-footer-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Certificate Box */
+.certificate-container {
+  margin-top: 2rem;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(7, 9, 14, 0.98));
+  border: 2px solid rgba(251, 191, 36, 0.4);
+  box-shadow: 0 0 50px rgba(251, 191, 36, 0.15);
+  position: relative;
+}
+.cert-inner-frame {
+  border: 1px dashed rgba(251, 191, 36, 0.3);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  position: relative;
+}
+.cert-header {
+  margin-bottom: 1.5rem;
+}
+.cert-icon-gold {
+  font-size: 2.5rem;
+  color: #fbbf24;
+  margin-bottom: 0.5rem;
+}
+.cert-company {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #fbbf24;
+  letter-spacing: 2px;
+}
+.cert-title {
+  font-family: var(--font-title);
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-top: 0.25rem;
+}
+.cert-presented {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.cert-candidate-name {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  font-weight: 900;
+  color: #38bdf8;
+  margin: 0.5rem 0;
+  text-transform: uppercase;
+}
+.cert-achievement-text {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto;
+}
+.cert-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.cert-sign, .cert-date {
+  display: flex;
+  flex-direction: column;
+}
+.sign-role {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+.sign-name {
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+.sign-school {
+  font-size: 0.75rem;
+  color: #fbbf24;
+}
+.stamp-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #10b981;
+  color: #10b981;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  transform: rotate(-12deg);
+}
+
+/* -------------------------------------------------------------
+   PRODUCT THINKING SECTION
+   ------------------------------------------------------------- */
+.pt-section {
+  padding: 6rem 0;
+}
+.pt-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.pt-card {
+  padding: 1.75rem;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.pt-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.4);
+}
+.pt-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+.pt-number {
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 8px;
+}
+.pt-card-header h4 {
+  font-family: var(--font-title);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+.pt-card-body p {
+  font-size: 0.96rem;
+  color: #f1f5f9;
+  font-weight: 500;
+  line-height: 1.65;
+  margin-bottom: 0.6rem;
+}
+.pt-card-body p:last-child {
+  margin-bottom: 0;
+}
+.pt-card-body strong {
+  color: #38bdf8;
+  font-weight: 700;
+}
+.pt-card-body code {
+  background: rgba(8, 14, 26, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+/* -------------------------------------------------------------
+   CONTACT SECTION
+   ------------------------------------------------------------- */
+.contact {
+  padding: 6rem 0;
+}
+.contact-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+.contact-info-heading {
+  font-family: var(--font-title);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+  margin-bottom: 0.75rem;
+}
+.contact-info-p {
+  color: #f1f5f9;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.contact-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.contact-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.contact-text h4 {
+  font-size: 0.82rem;
+  color: #93c5fd;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.contact-text p {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+.social-links-modern {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+.social-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  transition: var(--transition-fast);
+}
+.social-btn:hover {
+  color: #38bdf8;
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  transform: translateY(-3px);
+}
+
+.contact-form-card {
+  padding: 2.25rem;
+}
+.form-card-title {
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.form-group {
+  margin-bottom: 1.15rem;
+}
+.form-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: #f1f5f9;
+}
+.form-control {
+  width: 100%;
+  background: rgba(8, 14, 26, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.8rem 1.1rem;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: var(--transition-fast);
+}
+.form-control:focus {
+  border-color: #38bdf8;
+  background: rgba(12, 20, 36, 0.98);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+}
+
+/* -------------------------------------------------------------
+   MODALS (PARTS VIEWER & SIMBA SUBMISSION)
+   ------------------------------------------------------------- */
+.parts-modal-backdrop, .simba-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.parts-modal-backdrop.show, .simba-modal-backdrop.show {
+  display: flex;
+}
+.parts-modal-box, .simba-modal-box {
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  border-color: rgba(56, 189, 248, 0.3);
+}
+.parts-modal-header, .simba-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+.close-modal-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.close-modal-btn:hover {
+  color: white;
+}
+.parts-tabs-row {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.part-tab-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.part-tab-btn.active, .part-tab-btn:hover {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: #38bdf8;
+  color: #38bdf8;
+  font-weight: 600;
+}
+.parts-modal-footer, .simba-modal-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+.simba-textarea {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 1rem;
+  color: #38bdf8;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+/* -------------------------------------------------------------
+   FOOTER & TOAST
+   ------------------------------------------------------------- */
+footer {
+  border-top: 1px solid var(--glass-border);
+  padding: 2.5rem 0;
+  background: rgba(7, 9, 14, 0.95);
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-links a {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(15px);
+  border: 1px solid #10b981;
+  padding: 1rem 1.5rem;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 300;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: var(--transition-smooth);
+}
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+.toast-icon {
+  font-size: 1.5rem;
+  color: #10b981;
+}
+
+/* Scroll reveal class */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* -------------------------------------------------------------
+   RESPONSIVE DESIGN
+   ------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .hero-wrapper, .about-wrapper, .mega-card-grid, .hud-grid-layout, .contact-wrapper {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .hero-visual {
+    order: -1;
+  }
+  .hero-stats-panel {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .routes-grid, .pt-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .hud-instruments {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+  .menu-btn {
+    display: block;
+  }
+  .nav-links {
+    position: fixed;
+    top: 60px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background: rgba(7, 9, 14, 0.98);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    padding: 3rem 2rem;
+    gap: 1.5rem;
+    align-items: flex-start;
+    transition: var(--transition-smooth);
+    border-top: 1px solid var(--glass-border);
+  }
+  .nav-links.active {
+    left: 0;
+  }
+  .hero-title {
+    font-size: 2.8rem;
+  }
+  .section-title {
+    font-size: 1.85rem;
+  }
+  .thumb-selector-grid, .specs-metrics-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cert-footer-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+</style>
+</head>
+<body>
+
+  <!-- Background Particle & Canvas Animation -->
+  <canvas id="skyCanvas" class="sky-canvas"></canvas>
+
+  <!-- Interactive Mouse Glow -->
+  <div class="mouse-glow" id="mouseGlow"></div>
+
+  <!-- Top Telemetry Announcement Bar -->
+  <div class="telemetry-bar">
+    <div class="container telemetry-inner">
+      <div class="telemetry-item">
+        <span class="pulse-dot"></span>
+        <span class="mono-text">B787-9 DREAMLINER SYSTEM: ONLINE</span>
+      </div>
+      <div class="telemetry-item hide-mobile">
+        <i class="fa-solid fa-wind text-cyan"></i>
+        <span>VẬT LIỆU COMPOSITE: 50%+</span>
+      </div>
+      <div class="telemetry-item hide-mobile">
+        <i class="fa-solid fa-gauge-high text-gold"></i>
+        <span>TIẾT KIỆM NHIÊN LIỆU: 20%</span>
+      </div>
+      <div class="telemetry-actions">
+        <button id="audioToggleBtn" class="telemetry-btn" title="Bật/Tắt âm thanh buồng lái">
+          <i class="fa-solid fa-volume-high" id="audioIcon"></i>
+          <span class="hide-mobile">Âm thanh buồng lái</span>
+        </button>
+        <button id="quickSimbaBtn" class="telemetry-btn highlight" title="Sao chép nhanh bài nộp Simba">
+          <i class="fa-solid fa-copy"></i>
+          <span>Nộp Simba Nhanh</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header id="header">
+    <div class="container header-container">
+      <a href="#home" class="logo">
+        <div class="logo-icon-wrap">
+          <i class="fa-solid fa-plane-departure text-cyan"></i>
+        </div>
+        <div>
+          <span class="logo-name text-gradient">PHÚC KHÁNH</span>
+          <span class="logo-tag">THCS LINH ĐÀM &bull; AEROSPACE &bull; WEB DEV</span>
+        </div>
+      </a>
+      
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle Menu">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+      
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" class="active"><i class="fa-solid fa-house"></i> Trang Chủ</a>
+        <a href="#about"><i class="fa-solid fa-user-astronaut"></i> Em Là Ai</a>
+        <a href="#project"><i class="fa-solid fa-plane"></i> Dự Án Tự Hào (B787-9)</a>
+        <a href="#hud-simulator"><i class="fa-solid fa-sliders"></i> Buồng Lái HUD</a>
+        <a href="#routes"><i class="fa-solid fa-route"></i> Đường Bay VNA</a>
+        <a href="#quiz"><i class="fa-solid fa-award"></i> Đố Vui & Chứng Chỉ</a>
+        <a href="#contact"><i class="fa-solid fa-paper-plane"></i> Liên Hệ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-wrapper">
+        
+        <div class="hero-content">
+          <div class="badge-tag">
+            <i class="fa-solid fa-satellite-dish animate-spin-slow"></i>
+            <span>PORTFOLIO CÁ NHÂN &bull; SIMBA ASSIGNMENT</span>
+          </div>
+          
+          <span class="hero-subtitle">Xin chào, mình là</span>
+          
+          <h1 class="hero-title">
+            Phúc <span class="text-gradient">Khánh</span>
+          </h1>
+          
+          <h2 class="hero-role">
+            Học sinh đam mê <span class="text-cyan">Kỹ thuật Hàng Không</span> &amp; <span class="text-violet">Lập trình Web Tương tác</span>
+          </h2>
+          
+          <p class="hero-description">
+            Chào mừng bạn đến với website cá nhân của mình! Nơi hội tụ tinh thần khám phá thế giới hàng không hiện đại, niềm say mê với dòng siêu phi cơ <strong>Boeing 787-9 Dreamliner</strong> và sản phẩm web tương tác bóc tách kỹ thuật mà mình vô cùng tự hào.
+          </p>
+          
+          <div class="hero-buttons">
+            <a href="b787-9-vietnam-airlines/index.html" target="_blank" class="btn btn-primary glow-effect">
+              <i class="fa-solid fa-plane-up"></i> Web Khám Phá B787 Vui Nhộn 🚀
+            </a>
+            <a href="#hud-simulator" class="btn btn-outline">
+              <i class="fa-solid fa-gamepad"></i> Trải nghiệm Buồng Lái Ảo
+            </a>
+            <a href="#quiz" class="btn btn-secondary">
+              <i class="fa-solid fa-graduation-cap"></i> Nhận Chứng Chỉ B787-9
+            </a>
+          </div>
+          
+          <div class="hero-stats-panel glass-card">
+            <div class="hero-stat-card">
+              <span class="stat-num text-cyan">THCS</span>
+              <span class="stat-sub">Linh Đàm, Hà Nội</span>
+            </div>
+            <div class="hero-stat-card">
+              <span class="stat-num text-gold">B787-9</span>
+              <span class="stat-sub">Dự án Flagship tự hào</span>
+            </div>
+            <div class="hero-stat-card">
+              <span class="stat-num text-success">8 Hotspots</span>
+              <span class="stat-sub">Bóc tách linh kiện đa điểm</span>
+            </div>
+            <div class="hero-stat-card">
+              <span class="stat-num text-violet">100%</span>
+              <span class="stat-sub">Tự xây dựng &amp; Sáng tạo</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="hero-visual">
+          <div class="avatar-card-container">
+            <div class="avatar-glow-ring"></div>
+            <div class="avatar-inner-box">
+              <div class="avatar-flight-tag">
+                <i class="fa-solid fa-plane-shield text-gold"></i>
+                <span>FLIGHT CADET 2026</span>
+              </div>
+              
+              <div class="avatar-core-circle">
+                <div class="avatar-initials-glow">PK</div>
+              </div>
+              
+              <div class="avatar-profile-info">
+                <h3 class="avatar-name">Phúc Khánh</h3>
+                <p class="avatar-school"><i class="fa-solid fa-school text-cyan"></i> THCS Linh Đàm</p>
+                <div class="avatar-badge-list">
+                  <span class="badge-mini"><i class="fa-solid fa-code"></i> Frontend Dev</span>
+                  <span class="badge-mini"><i class="fa-solid fa-jet-fighter"></i> Aviation Fan</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1 & 2: Em là ai & Em thích hoặc quan tâm điều gì -->
+  <section class="about reveal" id="about">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-check"></i> TIÊU CHÍ 1 &amp; 2 CỦA BÀI TẬP</span>
+        <h2 class="section-title">Em Là Ai &amp; Em Đam Mê Điều Gì?</h2>
+        <p class="section-desc">Bản sắc cá nhân, tinh thần học hỏi không ngừng và niềm đam mê công nghệ định hình tương lai.</p>
+      </div>
+      
+      <div class="about-wrapper">
+        <div class="about-text-column">
+          
+          <div class="glass-card about-info-card">
+            <div class="card-icon-pill bg-cyan-soft">
+              <i class="fa-regular fa-id-card text-cyan"></i>
+              <span>MỤC 1: EM LÀ AI</span>
+            </div>
+            <h3 class="about-card-title">Học sinh đam mê sáng tạo &amp; kỹ thuật số</h3>
+            <p>
+              Em tên là <strong>Phúc Khánh</strong>, hiện đang học tập tại trường <strong>THCS Linh Đàm (Hoàng Mai, Hà Nội)</strong>. Em là một người luôn tràn đầy năng lượng, có tinh thần tự học cao, tò mò khám phá cách vận hành của các cỗ máy công nghệ cao và thích tự tay hiện thực hóa ý tưởng thành các trang web sống động.
+            </p>
+            <p>
+              Phương châm học tập của em là: <em>"Học kiến thức để hiểu thế giới, lập trình để kết nối mọi người."</em> Mỗi dự án web là cơ hội để em chia sẻ kiến thức hữu ích một cách trực quan và lôi cuốn nhất.
+            </p>
+          </div>
+
+          <div class="glass-card about-info-card">
+            <div class="card-icon-pill bg-gold-soft">
+              <i class="fa-solid fa-heart text-gold"></i>
+              <span>MỤC 2: EM THÍCH ĐIỀU GÌ</span>
+            </div>
+            <h3 class="about-card-title">Đam mê Kỹ thuật Hàng Không &amp; Lập trình Web</h3>
+            <p>
+              Em có niềm say mê đặc biệt với <strong>Khoa học Kỹ thuật Hàng Không</strong>, đặc biệt là dòng máy bay thân rộng hiện đại <strong>Boeing 787-9 Dreamliner</strong> – chiếc phi cơ mang tính cách mạng với hơn 50% thân bằng sợi carbon composite siêu nhẹ và động cơ GEnx-1B thân thiện môi trường.
+            </p>
+            <p>
+              Ngoài ra, em còn thích <strong>Lập trình Frontend</strong> (HTML5, CSS3, JavaScript tương tác), <strong>Tập Gym</strong> mỗi ngày để rèn luyện sức khỏe, sự kiên trì và <strong>Chơi Roblox</strong> cùng bạn bè để thử nghiệm tư duy logic.
+            </p>
+          </div>
+
+        </div>
+        
+        <div class="about-skills-column">
+          <div class="glass-card skills-card-wrap">
+            <h3 class="skills-column-title"><i class="fa-solid fa-bolt text-gold"></i> Bảng Lĩnh Vực Yêu Thích &amp; Kỹ Năng</h3>
+            
+            <div class="skills-grid-modern">
+              
+              <div class="skill-modern-item">
+                <div class="skill-item-icon" style="color: #38bdf8; background: rgba(56, 189, 248, 0.15);">
+                  <i class="fa-solid fa-plane"></i>
+                </div>
+                <div class="skill-item-body">
+                  <div class="skill-name-row">
+                    <span class="skill-title">Kỹ thuật Hàng Không &amp; B787-9</span>
+                    <span class="skill-pct text-cyan">95%</span>
+                  </div>
+                  <div class="skill-meter"><div class="meter-fill" style="width: 95%; background: #38bdf8;"></div></div>
+                  <span class="skill-caption">Cấu tạo khí động học, động cơ GEnx, composite</span>
+                </div>
+              </div>
+
+              <div class="skill-modern-item">
+                <div class="skill-item-icon" style="color: #a78bfa; background: rgba(167, 139, 250, 0.15);">
+                  <i class="fa-solid fa-code"></i>
+                </div>
+                <div class="skill-item-body">
+                  <div class="skill-name-row">
+                    <span class="skill-title">Lập trình Web Frontend</span>
+                    <span class="skill-pct text-violet">90%</span>
+                  </div>
+                  <div class="skill-meter"><div class="meter-fill" style="width: 90%; background: #a78bfa;"></div></div>
+                  <span class="skill-caption">HTML5, CSS3, JavaScript ES6, Tailwind UI</span>
+                </div>
+              </div>
+
+              <div class="skill-modern-item">
+                <div class="skill-item-icon" style="color: #fbbf24; background: rgba(251, 191, 36, 0.15);">
+                  <i class="fa-solid fa-brain"></i>
+                </div>
+                <div class="skill-item-body">
+                  <div class="skill-name-row">
+                    <span class="skill-title">Product Thinking (Tư Duy Sản Phẩm)</span>
+                    <span class="skill-pct text-gold">88%</span>
+                  </div>
+                  <div class="skill-meter"><div class="meter-fill" style="width: 88%; background: #fbbf24;"></div></div>
+                  <span class="skill-caption">Định vị người dùng, trải nghiệm UX, giải quyết vấn đề</span>
+                </div>
+              </div>
+
+              <div class="skill-modern-item">
+                <div class="skill-item-icon" style="color: #34d399; background: rgba(52, 211, 153, 0.15);">
+                  <i class="fa-solid fa-dumbbell"></i>
+                </div>
+                <div class="skill-item-body">
+                  <div class="skill-name-row">
+                    <span class="skill-title">Tập Gym &amp; Thể Thao Thể Lực</span>
+                    <span class="skill-pct text-success">85%</span>
+                  </div>
+                  <div class="skill-meter"><div class="meter-fill" style="width: 85%; background: #34d399;"></div></div>
+                  <span class="skill-caption">Kỷ luật bản thân, sức bền và nâng cao thể chất</span>
+                </div>
+              </div>
+
+              <div class="skill-modern-item">
+                <div class="skill-item-icon" style="color: #f472b6; background: rgba(244, 114, 182, 0.15);">
+                  <i class="fa-solid fa-gamepad"></i>
+                </div>
+                <div class="skill-item-body">
+                  <div class="skill-name-row">
+                    <span class="skill-title">Roblox Game &amp; Không gian 3D</span>
+                    <span class="skill-pct" style="color: #f472b6;">82%</span>
+                  </div>
+                  <div class="skill-meter"><div class="meter-fill" style="width: 82%; background: #f472b6;"></div></div>
+                  <span class="skill-caption">Sáng tạo kịch bản logic và tương tác nhóm</span>
+                </div>
+              </div>
+
+              <div class="skill-modern-item">
+                <div class="skill-item-icon" style="color: #f87171; background: rgba(248, 113, 113, 0.15);">
+                  <i class="fa-solid fa-drumstick-bite"></i>
+                </div>
+                <div class="skill-item-body">
+                  <div class="skill-name-row">
+                    <span class="skill-title">Ẩm thực &amp; Món Ăn Từ Gà</span>
+                    <span class="skill-pct" style="color: #f87171;">100%</span>
+                  </div>
+                  <div class="skill-meter"><div class="meter-fill" style="width: 100%; background: #f87171;"></div></div>
+                  <span class="skill-caption">Món khoái khẩu nạp năng lượng sau giờ học và tập gym</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Một sản phẩm, hoạt động, thành tích mà em tự hào (Dự Án B787-9) -->
+  <section class="project-section reveal" id="project">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-trophy"></i> TIÊU CHÍ 3 CỦA BÀI TẬP</span>
+        <h2 class="section-title">Sản Phẩm Mà Em Tự Hào Nhất</h2>
+        <p class="section-desc">Website Tra Cứu &amp; Mô Phỏng Cấu Tạo Tàu Bay Boeing 787-9 Dreamliner (Vietnam Airlines).</p>
+      </div>
+
+      <!-- Main Showcase Mega Card -->
+      <div class="showcase-mega-card glass-card">
+        <div class="mega-card-grid">
+          
+          <!-- Visual & Interactive Preview Side -->
+          <div class="mega-visual-side">
+            <div class="mega-image-container">
+              <img src="images/vietnam_airlines_b787_ocean.jpg?v=2" alt="Boeing 787-9 Vietnam Airlines Ocean Approach" class="mega-img" id="showcaseMainImg">
+              <div class="mega-overlay-hud">
+                <div class="hud-indicator">
+                  <span class="radar-scan"></span>
+                  <i class="fa-solid fa-crosshairs text-gold"></i>
+                  <span>HOTSPOT EXPLORER ACTIVE</span>
+                </div>
+                <span class="aircraft-code">VN-A868 &bull; B787-9 OCEAN APPROACH</span>
+              </div>
+            </div>
+            
+            <!-- Quick Image Thumbnails Selector -->
+            <div class="thumb-selector-grid">
+              <button class="thumb-btn active" data-img="images/vietnam_airlines_b787_ocean.jpg?v=2" data-caption="Boeing 787-9 Vietnam Airlines tiếp cận hạ cánh trên vịnh biển">
+                <img src="images/vietnam_airlines_b787_ocean.jpg?v=2" alt="B787 Ocean">
+                <span>Hạ cánh biển</span>
+              </button>
+              <button class="thumb-btn" data-img="images/vietnam_airlines_b787_tarmac.png" data-caption="Sơ đồ tương tác Tarmac toàn cảnh">
+                <img src="images/vietnam_airlines_b787_tarmac.png" alt="Tarmac">
+                <span>Toàn cảnh</span>
+              </button>
+              <button class="thumb-btn" data-img="images/vietnam_airlines_b787_engine_closeup.png" data-caption="Động cơ siêu êm GEnx-1B">
+                <img src="images/vietnam_airlines_b787_engine_closeup.png" alt="Engine">
+                <span>Động cơ</span>
+              </button>
+              <button class="thumb-btn" data-img="images/b787_apu_closeup.png" data-caption="Động cơ phụ APU & Đuôi">
+                <img src="images/b787_apu_closeup.png" alt="APU">
+                <span>APU Đuôi</span>
+              </button>
+            </div>
+
+            <!-- Technical Key Metrics Strip -->
+            <div class="specs-metrics-bar">
+              <div class="metric-block">
+                <span class="m-label">Tầm Bay Tối Đa</span>
+                <span class="m-val text-gold">14.140 km</span>
+              </div>
+              <div class="metric-block">
+                <span class="m-label">Sải Cánh</span>
+                <span class="m-val text-cyan">60.1 m</span>
+              </div>
+              <div class="metric-block">
+                <span class="m-label">Động Cơ</span>
+                <span class="m-val text-violet">GEnx-1B</span>
+              </div>
+              <div class="metric-block">
+                <span class="m-label">Ghế Ngồi</span>
+                <span class="m-val text-success">274 Ghế</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Information & Feature Breakdown Side -->
+          <div class="mega-info-side">
+            <div class="flagship-badge">
+              <i class="fa-solid fa-crown text-gold"></i>
+              <span>DỰ ÁN CÔNG NGHỆ TỰ HÀO NHẤT (FLAGSHIP PRODUCT)</span>
+            </div>
+
+            <h3 class="mega-project-title">
+              B787-9 Aircraft Parts Interactive Website
+            </h3>
+            
+            <p class="mega-project-summary">
+              Dự án website trực quan chuyên sâu do em tự tay xây dựng từ đầu. Thay vì đọc những tài liệu kỹ thuật dài dòng, người xem có thể tương tác trực tiếp lên sơ đồ máy bay Boeing 787-9 để bóc tách <strong>8 bộ phận khí động học cốt lõi</strong> với hình ảnh phóng to và thông số thực tế.
+            </p>
+
+            <div class="mega-features-list">
+              <div class="feature-item-row">
+                <div class="f-icon bg-cyan-soft text-cyan"><i class="fa-solid fa-location-crosshairs"></i></div>
+                <div>
+                  <h4 class="f-title">Sơ đồ tương tác Hotspot 8 Điểm Vàng</h4>
+                  <p class="f-desc">Bấm vào Mũi Radar, Ống Pitot, Buồng lái Glass Cockpit, Động cơ GEnx-1B, Cánh Raked Wingtip, Càng đáp, APU và Bánh lái đuôi để tra cứu chi tiết.</p>
+                </div>
+              </div>
+
+              <div class="feature-item-row">
+                <div class="f-icon bg-gold-soft text-gold"><i class="fa-solid fa-microchip"></i></div>
+                <div>
+                  <h4 class="f-title">Bản vẽ Vector động &amp; Thông số chuẩn kỹ thuật</h4>
+                  <p class="f-desc">Hình vẽ vector chi tiết minh họa nguyên lý áp suất toàn phần, công nghệ răng cưa chevrons giảm ồn và dữ liệu khí động học.</p>
+                </div>
+              </div>
+
+              <div class="feature-item-row">
+                <div class="f-icon bg-violet-soft text-violet"><i class="fa-solid fa-palette"></i></div>
+                <div>
+                  <h4 class="f-title">Phong cách Dark Luxury Vietnam Airlines</h4>
+                  <p class="f-desc">Màu xanh lục bảo (Teal) và vàng kim (Gold) sang trọng, chuẩn Responsive 100% trên điện thoại và máy tính.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mega-cta-group">
+              <a href="b787-9-vietnam-airlines/index.html" class="btn btn-primary glow-teal" target="_blank">
+                <i class="fa-solid fa-microchip"></i> Xem Bản Kỹ Thuật Chuyên Sâu 🚀
+              </a>
+              <a href="fun.html" class="btn btn-secondary glow-effect" target="_blank" style="background: linear-gradient(135deg, #f59e0b, #e11d48); color: white; border: none;">
+                <i class="fa-solid fa-gamepad"></i> Chơi Game & Đố Vui (Fun Hub) 🎮
+              </a>
+              <button class="btn btn-outline" id="openPartsPreviewModalBtn">
+                <i class="fa-solid fa-eye"></i> Xem Nhanh 8 Bộ Phận
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Second Showcase Card: Fun Hub & Mini-Games Arcade -->
+      <div class="showcase-mega-card glass-card" style="margin-top: 2rem; border-color: rgba(245, 158, 11, 0.3);">
+        <div class="mega-card-grid">
+          
+          <div class="mega-visual-side">
+            <div class="mega-image-container">
+              <img src="images/vietnam_airlines_b787_runway_night.png" alt="Boeing 787 Fun Hub Arcade" class="mega-img">
+              <div class="mega-overlay-hud" style="background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent);">
+                <div class="hud-indicator" style="background: rgba(245, 158, 11, 0.2); border-color: #f59e0b;">
+                  <i class="fa-solid fa-gamepad text-gold"></i>
+                  <span>3 MINI-GAMES ARCADE ACTIVE</span>
+                </div>
+                <span class="aircraft-code" style="color: #fde047;">ARCADE PLAYZONE &bull; 100% VUI NHỘN</span>
+              </div>
+            </div>
+            
+            <div class="specs-metrics-bar">
+              <div class="metric-block">
+                <span class="m-label">Mini-Games</span>
+                <span class="m-val text-gold">3 Trò Chơi</span>
+              </div>
+              <div class="metric-block">
+                <span class="m-label">Vòng Quay</span>
+                <span class="m-val text-cyan">8 Danh Hiệu</span>
+              </div>
+              <div class="metric-block">
+                <span class="m-label">Ghế Tương Tác</span>
+                <span class="m-val text-violet">Gọi Mì Tôm & Ngả Ghế</span>
+              </div>
+              <div class="metric-block">
+                <span class="m-label">Đố Vui Bựa</span>
+                <span class="m-val text-success">3 Chế Độ</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mega-info-side">
+            <div class="flagship-badge" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4); color: #fbbf24;">
+              <i class="fa-solid fa-wand-magic-sparkles text-gold"></i>
+              <span>DỰ ÁN GIẢI TRÍ &amp; TRÒ CHƠI HÀNG KHÔNG (FUN HUB)</span>
+            </div>
+
+            <h3 class="mega-project-title">
+              Boeing 787 Fun Hub &amp; Mini-Games Arcade
+            </h3>
+            
+            <p class="mega-project-summary">
+              Phiên bản giải trí đặc biệt dành cho mọi người, học sinh và bạn bè không cần kiến thức kỹ thuật. Trải nghiệm <strong>3 mini-games cực cuốn</strong> (Lái 787 lượn mây, Hứng đồ ăn tiếp viên, Flappy Dreamliner), <strong>Vòng quay nhân phẩm</strong>, và <strong>Bàn nghịch ghế hành khách</strong> khiến cả cabin cười nghiêng ngả!
+            </p>
+
+            <div class="mega-features-list">
+              <div class="feature-item-row">
+                <div class="f-icon bg-gold-soft text-gold"><i class="fa-solid fa-gamepad"></i></div>
+                <div>
+                  <h4 class="f-title">3 Mini-Games 2D Canvas 60 FPS</h4>
+                  <p class="f-desc">Cất cánh lái máy bay bắt Sen Vàng, lái xe đẩy hứng trà sữa mì tôm né vỏ chuối, vỗ cánh bay xuyên bão.</p>
+                </div>
+              </div>
+
+              <div class="feature-item-row">
+                <div class="f-icon bg-cyan-soft text-cyan"><i class="fa-solid fa-dharmachakra"></i></div>
+                <div>
+                  <h4 class="f-title">Vòng Quay May Mắn &amp; Bàn Ghế Nghịch Ngợm</h4>
+                  <p class="f-desc">Quay trúng "Thánh Ngủ Vô Cực", "1 Triệu Ly Trà Sữa", bấm chuông tiếp viên mang đồ ăn nóng hổi.</p>
+                </div>
+              </div>
+
+              <div class="feature-item-row">
+                <div class="f-icon bg-violet-soft text-violet"><i class="fa-solid fa-brain"></i></div>
+                <div>
+                  <h4 class="f-title">Đố Vui Bựa &amp; Bói Tính Cách Hành Khách</h4>
+                  <p class="f-desc">Giải mã tin đồn toilet hút chân không 150 km/h, bói xem bạn là Thánh Ngủ hay Thánh Xin Nước Ngọt.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mega-cta-group">
+              <a href="fun.html" class="btn btn-primary glow-effect" target="_blank" style="background: linear-gradient(135deg, #f59e0b, #e11d48); border: none;">
+                <i class="fa-solid fa-play"></i> Chơi Game &amp; Khám Phá Fun Hub Ngay! 🎮
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Cockpit HUD & Telemetry Simulator Section -->
+  <section class="hud-section reveal" id="hud-simulator">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-sliders"></i> TÍNH NĂNG TƯƠNG TÁC ĐẶC BIỆT</span>
+        <h2 class="section-title">Mô Phỏng Buồng Lái Kỹ Thuật Số (Cockpit HUD)</h2>
+        <p class="section-desc">Thử điều chỉnh lực đẩy động cơ GEnx và độ cao bay để quan sát thông số khí động học của Boeing 787-9.</p>
+      </div>
+
+      <div class="hud-terminal-card glass-card">
+        <div class="hud-top-bar">
+          <div class="hud-flight-id">
+            <i class="fa-solid fa-plane text-cyan"></i>
+            <span>FLIGHT SIM: VN-B787-9 DREAMLINER</span>
+          </div>
+          <div class="hud-status-badge">
+            <span class="status-blink"></span> CRUISE MODE
+          </div>
+        </div>
+
+        <div class="hud-grid-layout">
+          <!-- Gauges & Telemetry -->
+          <div class="hud-instruments">
+            <div class="instrument-box">
+              <span class="inst-label">TỐC ĐỘ BAY (AIRSPEED)</span>
+              <div class="inst-val-row">
+                <span class="inst-number" id="hudSpeedVal">Mach 0.85</span>
+                <span class="inst-unit">~ 903 km/h</span>
+              </div>
+              <div class="hud-bar-wrap"><div class="hud-bar-fill" id="hudSpeedBar" style="width: 85%;"></div></div>
+            </div>
+
+            <div class="instrument-box">
+              <span class="inst-label">ĐỘ CAO HÀNH TRÌNH (ALTITUDE)</span>
+              <div class="inst-val-row">
+                <span class="inst-number text-cyan" id="hudAltVal">39,000 FT</span>
+                <span class="inst-unit">~ 11,887 m</span>
+              </div>
+              <div class="hud-bar-wrap"><div class="hud-bar-fill" id="hudAltBar" style="width: 90%; background: #38bdf8;"></div></div>
+            </div>
+
+            <div class="instrument-box">
+              <span class="inst-label">LỰC ĐẨY ĐỘNG CƠ GEnx-1B (THRUST)</span>
+              <div class="inst-val-row">
+                <span class="inst-number text-gold" id="hudThrustVal">85% N1</span>
+                <span class="inst-unit">2 x 340 kN</span>
+              </div>
+              <div class="hud-bar-wrap"><div class="hud-bar-fill" id="hudThrustBar" style="width: 85%; background: #fbbf24;"></div></div>
+            </div>
+
+            <div class="instrument-box">
+              <span class="inst-label">ÁP SUẤT CABIN (COMPOSITE BENEFIT)</span>
+              <div class="inst-val-row">
+                <span class="inst-number text-success" id="hudCabinVal">6,000 FT Equiv</span>
+                <span class="inst-unit">Êm ái vượt trội</span>
+              </div>
+              <div class="hud-bar-wrap"><div class="hud-bar-fill" style="width: 75%; background: #34d399;"></div></div>
+            </div>
+          </div>
+
+          <!-- Interactive Flight Controls -->
+          <div class="hud-controls-panel">
+            <h4 class="ctrl-heading"><i class="fa-solid fa-gamepad text-gold"></i> Bảng Điều Khiển Buồng Lái</h4>
+            
+            <div class="control-row">
+              <div class="ctrl-label-row">
+                <span>Cần Gạt Lực Đẩy (Thrust Lever):</span>
+                <span class="ctrl-current-val text-gold" id="thrustSliderVal">85%</span>
+              </div>
+              <input type="range" min="20" max="100" value="85" class="flight-slider" id="thrustSlider">
+            </div>
+
+            <div class="control-row">
+              <div class="ctrl-label-row">
+                <span>Độ Cao Bay (Flight Level):</span>
+                <span class="ctrl-current-val text-cyan" id="altSliderVal">39,000 ft</span>
+              </div>
+              <input type="range" min="10000" max="43000" step="1000" value="39000" class="flight-slider" id="altSlider">
+            </div>
+
+            <div class="control-row">
+              <div class="ctrl-label-row">
+                <span>Góc Cánh Tà (Flaps Configuration):</span>
+                <span class="ctrl-current-val text-violet" id="flapsVal">UP (0°)</span>
+              </div>
+              <div class="flaps-btn-group">
+                <button class="flaps-btn active" data-flaps="UP (0°)">0° (Cruise)</button>
+                <button class="flaps-btn" data-flaps="Flaps 15°">15° (Takeoff)</button>
+                <button class="flaps-btn" data-flaps="Flaps 30°">30° (Landing)</button>
+              </div>
+            </div>
+
+            <div class="hud-alert-box" id="hudTipBox">
+              <i class="fa-solid fa-circle-info text-cyan"></i>
+              <span id="hudTipText">Thân máy bay B787 làm từ composite cho phép duy trì áp suất cabin ở mức 6.000 ft (thay vì 8.000 ft như vỏ nhôm), giúp hành khách không bị mệt mỏi và say độ cao.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vietnam Airlines B787-9 Global Flight Routes Section -->
+  <section class="routes-section reveal" id="routes">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-globe"></i> TẦM BAY &amp; ĐƯỜNG BAY QUỐC TẾ</span>
+        <h2 class="section-title">Mạng Đường Bay Thân Rộng Boeing 787-9 Vietnam Airlines</h2>
+        <p class="section-desc">Nhờ tầm bay 14.140 km và tiết kiệm 20% nhiên liệu, B787-9 là xương sống trên các chặng bay xuyên lục địa.</p>
+      </div>
+
+      <div class="routes-grid">
+        
+        <!-- Route 1: London -->
+        <div class="route-card glass-card">
+          <div class="route-top">
+            <span class="flight-num">VN55 / VN56</span>
+            <span class="route-type-badge">Bay Thẳng Xuyên Lục Địa</span>
+          </div>
+          <div class="route-path">
+            <div class="city-box">
+              <span class="city-code">HAN</span>
+              <span class="city-name">Hà Nội (HAN)</span>
+            </div>
+            <div class="flight-line">
+              <i class="fa-solid fa-plane plane-fly-anim"></i>
+              <span class="flight-duration">11h 45m</span>
+            </div>
+            <div class="city-box">
+              <span class="city-code">LHR</span>
+              <span class="city-name">Luân Đôn (LHR)</span>
+            </div>
+          </div>
+          <div class="route-details-grid">
+            <div><span class="r-sub">Khoảng cách:</span> <strong>9.240 km</strong></div>
+            <div><span class="r-sub">Tiết kiệm nhiên liệu:</span> <strong class="text-success">~16.000 kg/chuyến</strong></div>
+          </div>
+        </div>
+
+        <!-- Route 2: Paris -->
+        <div class="route-card glass-card">
+          <div class="route-top">
+            <span class="flight-num">VN19 / VN18</span>
+            <span class="route-type-badge">Bay Thẳng Xuyên Lục Địa</span>
+          </div>
+          <div class="route-path">
+            <div class="city-box">
+              <span class="city-code">SGN</span>
+              <span class="city-name">TP. Hồ Chí Minh</span>
+            </div>
+            <div class="flight-line">
+              <i class="fa-solid fa-plane plane-fly-anim"></i>
+              <span class="flight-duration">12h 10m</span>
+            </div>
+            <div class="city-box">
+              <span class="city-code">CDG</span>
+              <span class="city-name">Paris (CDG)</span>
+            </div>
+          </div>
+          <div class="route-details-grid">
+            <div><span class="r-sub">Khoảng cách:</span> <strong>10.100 km</strong></div>
+            <div><span class="r-sub">Tiết kiệm nhiên liệu:</span> <strong class="text-success">~17.500 kg/chuyến</strong></div>
+          </div>
+        </div>
+
+        <!-- Route 3: Frankfurt -->
+        <div class="route-card glass-card">
+          <div class="route-top">
+            <span class="flight-num">VN37 / VN36</span>
+            <span class="route-type-badge">Bay Thẳng Xuyên Lục Địa</span>
+          </div>
+          <div class="route-path">
+            <div class="city-box">
+              <span class="city-code">HAN</span>
+              <span class="city-name">Hà Nội (HAN)</span>
+            </div>
+            <div class="flight-line">
+              <i class="fa-solid fa-plane plane-fly-anim"></i>
+              <span class="flight-duration">11h 55m</span>
+            </div>
+            <div class="city-box">
+              <span class="city-code">FRA</span>
+              <span class="city-name">Frankfurt (FRA)</span>
+            </div>
+          </div>
+          <div class="route-details-grid">
+            <div><span class="r-sub">Khoảng cách:</span> <strong>9.350 km</strong></div>
+            <div><span class="r-sub">Tiết kiệm nhiên liệu:</span> <strong class="text-success">~16.200 kg/chuyến</strong></div>
+          </div>
+        </div>
+
+        <!-- Route 4: Sydney -->
+        <div class="route-card glass-card">
+          <div class="route-top">
+            <span class="flight-num">VN773 / VN772</span>
+            <span class="route-type-badge">Châu Á - Châu Đại Dương</span>
+          </div>
+          <div class="route-path">
+            <div class="city-box">
+              <span class="city-code">SGN</span>
+              <span class="city-name">TP. Hồ Chí Minh</span>
+            </div>
+            <div class="flight-line">
+              <i class="fa-solid fa-plane plane-fly-anim"></i>
+              <span class="flight-duration">8h 40m</span>
+            </div>
+            <div class="city-box">
+              <span class="city-code">SYD</span>
+              <span class="city-name">Sydney (SYD)</span>
+            </div>
+          </div>
+          <div class="route-details-grid">
+            <div><span class="r-sub">Khoảng cách:</span> <strong>7.180 km</strong></div>
+            <div><span class="r-sub">Tiết kiệm nhiên liệu:</span> <strong class="text-success">~12.800 kg/chuyến</strong></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Aviation Quiz & Certificate Generator Section -->
+  <section class="quiz-section reveal" id="quiz">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-award"></i> TRÒ CHƠI &amp; XUẤT CHỨNG CHỈ</span>
+        <h2 class="section-title">Thử Tài Kiến Thức: Đố Vui Boeing 787-9 &amp; Hàng Không</h2>
+        <p class="section-desc">Hoàn thành bộ câu hỏi để nhận ngay <strong>Chứng Chỉ Chuyên Gia Hàng Không B787-9</strong> mang tên bạn!</p>
+      </div>
+
+      <div class="glass-card quiz-card">
+        
+        <!-- Quiz Intro Screen -->
+        <div id="quiz-intro">
+          <div class="quiz-badge-icon">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <h3 class="quiz-intro-heading">
+            Sẵn sàng cất cánh cùng Thử Thách B787-9?
+          </h3>
+          <p class="quiz-intro-p">
+            Bộ 5 câu hỏi trắc nghiệm với hình ảnh thực tế sẽ kiểm tra sự hiểu biết của bạn về công nghệ composite, động cơ GEnx-1B và cấu tạo hiện đại của Boeing 787-9.
+          </p>
+          
+          <div class="quiz-user-input-wrap">
+            <label for="userNameForCert" class="input-label"><i class="fa-solid fa-user-pen text-cyan"></i> Nhập họ tên của bạn để in lên Chứng chỉ:</label>
+            <input type="text" id="userNameForCert" class="cert-input-control" placeholder="Ví dụ: Nguyễn Văn A..." value="Thầy Cô / Bạn Bè">
+          </div>
+
+          <div class="text-center mt-3">
+            <button class="btn btn-primary glow-effect" id="start-quiz-btn">
+              <i class="fa-solid fa-play"></i> Bắt đầu thi đấu
+            </button>
+          </div>
+        </div>
+        
+        <!-- Question Active Screen -->
+        <div id="quiz-container" style="display: none;">
+          <div class="quiz-progress-wrap">
+            <div class="progress-info-row">
+              <span id="question-number">Câu hỏi 1/5</span>
+              <span id="current-score-tag" class="score-tag">Điểm hiện tại: 0</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="progress-bar"></div>
+            </div>
+          </div>
+
+          <div id="quiz-image-container" class="quiz-img-box" style="display: none;">
+            <img id="quiz-question-image" src="" alt="Hình ảnh câu hỏi" class="quiz-img-fluid">
+          </div>
+
+          <h3 id="question-text" class="question-title">
+            Câu hỏi ở đây?
+          </h3>
+
+          <div class="options-grid" id="options-container">
+            <!-- Options will be injected dynamically -->
+          </div>
+
+          <div class="quiz-feedback" id="quiz-feedback" style="display: none;"></div>
+
+          <div class="quiz-footer-actions">
+            <button class="btn btn-primary" id="next-question-btn" style="display: none;">
+              Câu tiếp theo <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Quiz Result Screen with Certificate -->
+        <div id="quiz-result" style="display: none;">
+          
+          <div class="result-top-summary text-center">
+            <div class="result-icon-wrap" id="result-icon">
+              <i class="fa-solid fa-crown text-gold" style="font-size: 3.5rem;"></i>
+            </div>
+            <h3 class="result-title">Kết Quả Chuyến Bay</h3>
+            <p id="result-text" class="result-desc"></p>
+          </div>
+
+          <!-- Official Aviation Certificate Canvas & Card -->
+          <div class="certificate-container glass-card" id="certificateBox">
+            <div class="cert-inner-frame">
+              <div class="cert-header">
+                <i class="fa-solid fa-award cert-icon-gold"></i>
+                <h4 class="cert-company">VIETNAM AIRLINES &bull; B787-9 ACADEMY</h4>
+                <h3 class="cert-title">CHỨNG NHẬN AM HIỂU KỸ THUẬT HÀNG KHÔNG</h3>
+              </div>
+              
+              <div class="cert-body">
+                <p class="cert-presented">Chứng nhận được trao cho:</p>
+                <h2 class="cert-candidate-name" id="certCandidateName">HỌC VIÊN XUẤT SẮC</h2>
+                <p class="cert-achievement-text" id="certScoreText">Đã xuất sắc hoàn thành bài trắc nghiệm kiến thức tàu bay Boeing 787-9 Dreamliner với điểm số tuyệt đối 5/5.</p>
+              </div>
+
+              <div class="cert-footer-row">
+                <div class="cert-sign">
+                  <span class="sign-role">Tác giả Website</span>
+                  <strong class="sign-name">Phúc Khánh</strong>
+                  <span class="sign-school">THCS Linh Đàm</span>
+                </div>
+                <div class="cert-stamp">
+                  <div class="stamp-circle">
+                    <i class="fa-solid fa-plane-up"></i>
+                    <span>VERIFIED</span>
+                  </div>
+                </div>
+                <div class="cert-date">
+                  <span class="sign-role">Ngày cấp</span>
+                  <strong id="certDateDisplay">2026-09-02</strong>
+                  <span class="sign-school">Simba System</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-actions-row text-center mt-4">
+            <button class="btn btn-primary" id="downloadCertBtn">
+              <i class="fa-solid fa-download"></i> Tải Ảnh Chứng Chỉ (.PNG)
+            </button>
+            <button class="btn btn-secondary" id="restart-quiz-btn">
+              <i class="fa-solid fa-rotate-left"></i> Chơi lại lần nữa
+            </button>
+            <a href="#project" class="btn btn-outline">
+              <i class="fa-solid fa-plane"></i> Ôn lại bài trên B787-9
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Thinking Form Section (Chuẩn chỉnh để nộp bài và chấm điểm) -->
+  <section class="pt-section reveal" id="product-thinking">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-clipboard-check"></i> HỒ SƠ NỘP BÀI SIMBA</span>
+        <h2 class="section-title">Câu Trả Lời Tư Duy Sản Phẩm (Product Thinking)</h2>
+        <p class="section-desc">Bản tổng hợp câu trả lời chuẩn chỉnh theo 4 câu hỏi định hướng của đề bài để nộp lên hệ thống Simba.</p>
+      </div>
+
+      <div class="pt-cards-grid">
+        
+        <div class="pt-card glass-card">
+          <div class="pt-card-header">
+            <span class="pt-number">01</span>
+            <h4>Em là ai? (Đối tượng người xem)</h4>
+          </div>
+          <div class="pt-card-body">
+            <p><strong>Bản thân tác giả:</strong> Em là <strong>Phúc Khánh</strong>, học sinh trường THCS Linh Đàm (Hà Nội). Em đam mê kỹ thuật hàng không, khám phá cơ chế hoạt động của máy bay và thích lập trình web tạo ra các sản phẩm trực quan.</p>
+            <p><strong>Người xem mục tiêu:</strong> Thầy cô chấm bài trên Simba, bạn bè cùng lớp, phụ huynh và cộng đồng những người đam mê khoa học hàng không.</p>
+          </div>
+        </div>
+
+        <div class="pt-card glass-card">
+          <div class="pt-card-header">
+            <span class="pt-number">02</span>
+            <h4>Em thích hoặc quan tâm điều gì?</h4>
+          </div>
+          <div class="pt-card-body">
+            <p><strong>Đam mê kỹ thuật:</strong> Công nghệ chế tạo phi cơ hiện đại Boeing 787-9 Dreamliner (vật liệu thân composite carbon siêu nhẹ, động cơ GEnx-1B êm ái, cánh vát khí động học).</p>
+            <p><strong>Kỹ năng sáng tạo:</strong> Lập trình Frontend (HTML, CSS, JavaScript), thiết kế giao diện tương tác UI/UX, rèn luyện thể thao nâng cao thể chất.</p>
+          </div>
+        </div>
+
+        <div class="pt-card glass-card">
+          <div class="pt-card-header">
+            <span class="pt-number">03</span>
+            <h4>Sản phẩm em tự hào</h4>
+          </div>
+          <div class="pt-card-body">
+            <p><strong>Tên sản phẩm:</strong> <em>B787-9 Aircraft Parts Website (Vietnam Airlines Explorer)</em>.</p>
+            <p><strong>Giá trị mang lại:</strong> Thay vì đọc tài liệu kỹ thuật dài dòng, người xem chỉ cần bấm vào các điểm sáng Hotspot trên thân máy bay để xem ngay hình vẽ minh họa, nguyên lý hoạt động và thông số thực tế của 8 bộ phận chủ chốt.</p>
+          </div>
+        </div>
+
+        <div class="pt-card glass-card">
+          <div class="pt-card-header">
+            <span class="pt-number">04</span>
+            <h4>Người xem tìm hiểu thêm ở đâu?</h4>
+          </div>
+          <div class="pt-card-body">
+            <p><strong>Kênh kết nối:</strong> Mục Liên Hệ trực tiếp bên dưới với Form gửi tin nhắn phản hồi nhanh.</p>
+            <p><strong>Mạng xã hội & Mã nguồn:</strong> Kênh GitHub, LinkedIn, Email liên hệ cá nhân <code>pikalongchen@gmail.com</code> và liên kết trực tiếp giữa Website Cá Nhân và Website B787-9.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-4">
+        <button class="btn btn-primary glow-effect" id="copyProductThinkingBtn">
+          <i class="fa-solid fa-copy"></i> Sao chép toàn bộ Câu trả lời Product Thinking (Để dán vào Simba)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Liên hệ & Người xem có thể tìm hiểu thêm về em ở đâu -->
+  <section class="contact reveal" id="contact">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-badge"><i class="fa-solid fa-envelope-open-text"></i> TIÊU CHÍ 4 CỦA BÀI TẬP</span>
+        <h2 class="section-title">Người Xem Có Thể Tìm Hiểu Thêm Về Em Ở Đâu?</h2>
+        <p class="section-desc">Hãy gửi lời nhắn, góp ý hoặc kết nối với em qua các kênh thông tin bên dưới nhé!</p>
+      </div>
+      
+      <div class="contact-wrapper">
+        <div class="contact-info">
+          <h3 class="contact-info-heading">
+            Rất vui được kết nối cùng thầy cô &amp; các bạn!
+          </h3>
+          <p class="contact-info-p">
+            Em luôn sẵn sàng lắng nghe mọi nhận xét để hoàn thiện website và học hỏi thêm nhiều kiến thức bổ ích về lập trình cũng như công nghệ vũ trụ hàng không.
+          </p>
+          
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon bg-cyan-soft text-cyan"><i class="fa-solid fa-envelope"></i></div>
+              <div class="contact-text">
+                <h4>Email học tập</h4>
+                <p>pikalongchen@gmail.com</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon bg-gold-soft text-gold"><i class="fa-solid fa-school"></i></div>
+              <div class="contact-text">
+                <h4>Trường học</h4>
+                <p>THCS Linh Đàm, Hoàng Mai, Hà Nội</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon bg-violet-soft text-violet"><i class="fa-solid fa-plane-shield"></i></div>
+              <div class="contact-text">
+                <h4>Dự án nổi bật</h4>
+                <p><a href="b787-9-vietnam-airlines/index.html" target="_blank" style="color: #38bdf8; text-decoration: underline; font-weight: 700;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Web Khám Phá B787 Vui Nhộn 🚀</a></p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="social-links-modern">
+            <a href="https://github.com" target="_blank" class="social-btn" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://linkedin.com" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://facebook.com" target="_blank" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="mailto:pikalongchen@gmail.com" class="social-btn" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+          </div>
+        </div>
+        
+        <div class="glass-card contact-form-card">
+          <h4 class="form-card-title">
+            <i class="fa-regular fa-paper-plane text-cyan"></i> Gửi Lời Nhắn Trực Tiếp Cho Em
+          </h4>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name" class="form-label">Họ và tên của bạn</label>
+              <input type="text" id="name" name="name" class="form-control" placeholder="Thầy cô / Bạn bè..." required>
+            </div>
+            <div class="form-group">
+              <label for="email" class="form-label">Địa chỉ email</label>
+              <input type="email" id="email" name="email" class="form-control" placeholder="email@domain.com" required>
+            </div>
+            <div class="form-group">
+              <label for="subject" class="form-label">Chủ đề</label>
+              <input type="text" id="subject" name="subject" class="form-control" placeholder="Góp ý bài tập / Nhận xét dự án B787-9..." required>
+            </div>
+            <div class="form-group">
+              <label for="message" class="form-label">Nội dung tin nhắn</label>
+              <textarea id="message" name="message" class="form-control" rows="4" placeholder="Nhập lời nhắn hoặc nhận xét của bạn tại đây..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+              Gửi tin nhắn <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal: Quick 8-Parts Viewer Popup -->
+  <div class="parts-modal-backdrop" id="partsModalBackdrop">
+    <div class="parts-modal-box glass-card">
+      <div class="parts-modal-header">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-plane-circle-check text-gold"></i>
+          <h3 style="font-family: var(--font-title); font-size: 1.3rem;">Bóc Tách 8 Bộ Phận Kỹ Thuật Boeing 787-9</h3>
+        </div>
+        <button class="close-modal-btn" id="closePartsModalBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="parts-tabs-row" id="partsTabsRow">
+        <button class="part-tab-btn active" data-part="radome">1. Mũi Radar</button>
+        <button class="part-tab-btn" data-part="pitot">2. Ống Pitot</button>
+        <button class="part-tab-btn" data-part="cockpit">3. Buồng Lái</button>
+        <button class="part-tab-btn" data-part="engines">4. Động Cơ GEnx</button>
+        <button class="part-tab-btn" data-part="wings">5. Cánh Vát</button>
+        <button class="part-tab-btn" data-part="gear">6. Càng Đáp</button>
+        <button class="part-tab-btn" data-part="apu">7. APU Đuôi</button>
+        <button class="part-tab-btn" data-part="rudder">8. Bánh Lái Đuôi</button>
+      </div>
+
+      <div class="parts-tab-content-area" id="partsTabContent">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <div class="parts-modal-footer">
+        <a href="b787-9-vietnam-airlines/index.html" target="_blank" class="btn btn-primary">
+          <i class="fa-solid fa-up-right-from-square"></i> Mở Web Khám Phá B787 Vui Nhộn 🚀
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Quick Simba Fast-Submit Popup -->
+  <div class="simba-modal-backdrop" id="simbaModalBackdrop">
+    <div class="simba-modal-box glass-card">
+      <div class="simba-modal-header">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-box-archive text-gold"></i>
+          <h3 style="font-family: var(--font-title); font-size: 1.35rem;">Bản Nộp Bài Nhanh Trên Simba</h3>
+        </div>
+        <button class="close-modal-btn" id="closeSimbaModalBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="simba-modal-body">
+        <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem;">
+          Bạn có thể nhấn nút sao chép bên dưới để lấy nội dung bài làm hoàn chỉnh nộp trực tiếp lên hệ thống Simba:
+        </p>
+
+        <div class="simba-copy-box">
+          <textarea id="simbaCopyTextarea" readonly class="simba-textarea" rows="10"></textarea>
+        </div>
+      </div>
+
+      <div class="simba-modal-footer">
+        <button class="btn btn-primary" id="copySimbaContentBtn">
+          <i class="fa-solid fa-copy"></i> Sao Chép Toàn Bộ (1-Click Copy)
+        </button>
+        <button class="btn btn-outline" id="closeSimbaModalBtn2">
+          Đóng
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <p>&copy; 2026 <strong>Phúc Khánh</strong> - Bài tập Website Cá Nhân (Simba MindX Assignment).</p>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">Tích hợp dự án Flagship: <em>Boeing 787-9 Dreamliner Aircraft Parts Website</em>.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#home">Lên đầu trang <i class="fa-solid fa-arrow-up"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Success Popup -->
+  <div class="toast" id="toast">
+    <div class="toast-icon"><i class="fa-solid fa-circle-check"></i></div>
+    <div>
+      <h4 style="font-weight: 600; font-size: 0.95rem; color: white;" id="toastTitle">Thao tác thành công!</h4>
+      <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.15rem;" id="toastDesc">Nội dung đã được xử lý.</p>
+    </div>
+  </div>
+
+  <!-- Custom Javascript -->
+  <script>
+/* -------------------------------------------------------------
+   1. STARFIELD & SUPERSONIC AIRCRAFT SKY CANVAS ANIMATION
+   ------------------------------------------------------------- */
+const skyCanvas = document.getElementById('skyCanvas');
+if (skyCanvas) {
+  const ctx = skyCanvas.getContext('2d');
+  let width = (skyCanvas.width = window.innerWidth);
+  let height = (skyCanvas.height = window.innerHeight);
+
+  window.addEventListener('resize', () => {
+    width = skyCanvas.width = window.innerWidth;
+    height = skyCanvas.height = window.innerHeight;
+  });
+
+  // Stars particles
+  const stars = [];
+  const STAR_COUNT = 70;
+  for (let i = 0; i < STAR_COUNT; i++) {
+    stars.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 1.5 + 0.5,
+      speedX: -(Math.random() * 0.2 + 0.05),
+      opacity: Math.random() * 0.8 + 0.2
+    });
+  }
+
+  // Shooting plane trail
+  let jetPlane = {
+    x: -100,
+    y: height * 0.25,
+    speed: 1.8,
+    active: true
+  };
+
+  function animateSky() {
+    ctx.clearRect(0, 0, width, height);
+
+    // Draw stars
+    ctx.fillStyle = '#ffffff';
+    stars.forEach((star) => {
+      ctx.globalAlpha = star.opacity;
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+      ctx.fill();
+
+      star.x += star.speedX;
+      if (star.x < 0) {
+        star.x = width;
+        star.y = Math.random() * height;
+      }
+    });
+
+    // Draw Jet Plane Trail across sky
+    if (jetPlane.active) {
+      ctx.globalAlpha = 0.4;
+      const trailGrad = ctx.createLinearGradient(
+        jetPlane.x - 80,
+        jetPlane.y,
+        jetPlane.x,
+        jetPlane.y
+      );
+      trailGrad.addColorStop(0, 'transparent');
+      trailGrad.addColorStop(1, '#38bdf8');
+      ctx.strokeStyle = trailGrad;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(jetPlane.x - 80, jetPlane.y);
+      ctx.lineTo(jetPlane.x, jetPlane.y);
+      ctx.stroke();
+
+      // Plane icon dot
+      ctx.globalAlpha = 0.9;
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(jetPlane.x, jetPlane.y, 2, 0, Math.PI * 2);
+      ctx.fill();
+
+      jetPlane.x += jetPlane.speed;
+      if (jetPlane.x > width + 100) {
+        jetPlane.x = -150;
+        jetPlane.y = Math.random() * (height * 0.5) + 50;
+      }
+    }
+
+    requestAnimationFrame(animateSky);
+  }
+  animateSky();
+}
+
+/* -------------------------------------------------------------
+   2. MOUSE FOLLOW GLOW EFFECT
+   ------------------------------------------------------------- */
+const mouseGlow = document.getElementById('mouseGlow');
+if (mouseGlow) {
+  document.addEventListener('mousemove', (e) => {
+    mouseGlow.style.left = `${e.clientX}px`;
+    mouseGlow.style.top = `${e.clientY}px`;
+    mouseGlow.style.opacity = '1';
+  });
+}
+
+/* -------------------------------------------------------------
+   3. WEB AUDIO JET ENGINE AMBIENT SOUND SYNTHESIZER
+   ------------------------------------------------------------- */
+let audioCtx = null;
+let noiseNode = null;
+let isAudioPlaying = false;
+const audioToggleBtn = document.getElementById('audioToggleBtn');
+const audioIcon = document.getElementById('audioIcon');
+
+function toggleJetSound() {
+  if (!audioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      audioCtx = new AudioContextClass();
+    }
+  }
+
+  if (!audioCtx) return;
+
+  if (isAudioPlaying) {
+    if (noiseNode) {
+      try { noiseNode.stop(); noiseNode.disconnect(); } catch (err) {}
+      noiseNode = null;
+    }
+    isAudioPlaying = false;
+    if (audioIcon) audioIcon.className = 'fa-solid fa-volume-xmark';
+    showToast('Âm thanh buồng lái: ĐÃ TẮT');
+  } else {
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+
+    // Generate Pink/Brown Noise buffer for smooth jet turbine hum
+    const bufferSize = audioCtx.sampleRate * 2;
+    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+    let lastOut = 0.0;
+    for (let i = 0; i < bufferSize; i++) {
+      const white = Math.random() * 2 - 1;
+      data[i] = (lastOut + (0.02 * white)) / 1.02;
+      lastOut = data[i];
+      data[i] *= 2.5; // Gain
+    }
+
+    noiseNode = audioCtx.createBufferSource();
+    noiseNode.buffer = buffer;
+    noiseNode.loop = true;
+
+    // Lowpass filter to simulate sound inside pressurized B787 cabin
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(280, audioCtx.currentTime);
+
+    const gainNode = audioCtx.createGain();
+    gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+
+    noiseNode.connect(filter);
+    filter.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+
+    noiseNode.start();
+    isAudioPlaying = true;
+    if (audioIcon) audioIcon.className = 'fa-solid fa-volume-high text-cyan';
+    showToast('Âm thanh buồng lái B787: ĐÃ BẬT', 'Tiếng động cơ turbine êm ái mô phỏng trong cabin.');
+  }
+}
+
+if (audioToggleBtn) {
+  audioToggleBtn.addEventListener('click', toggleJetSound);
+}
+
+/* -------------------------------------------------------------
+   4. NAVIGATION BAR SCROLL & MOBILE MENU
+   ------------------------------------------------------------- */
+const header = document.getElementById('header');
+const sections = document.querySelectorAll('section');
+const navItems = document.querySelectorAll('.nav-links a');
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 40) {
+    header?.classList.add('scrolled');
+  } else {
+    header?.classList.remove('scrolled');
+  }
+
+  let currentSection = '';
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.clientHeight;
+    if (window.pageYOffset >= sectionTop - sectionHeight / 3.5) {
+      currentSection = section.getAttribute('id');
+    }
+  });
+
+  navItems.forEach((item) => {
+    item.classList.remove('active');
+    if (item.getAttribute('href').substring(1) === currentSection) {
+      item.classList.add('active');
+    }
+  });
+});
+
+if (menuBtn && navLinks) {
+  const menuIcon = menuBtn.querySelector('i');
+  menuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    if (navLinks.classList.contains('active')) {
+      menuIcon.className = 'fa-solid fa-xmark';
+    } else {
+      menuIcon.className = 'fa-solid fa-bars-staggered';
+    }
+  });
+
+  navItems.forEach((link) => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+      if (menuIcon) menuIcon.className = 'fa-solid fa-bars-staggered';
+    });
+  });
+}
+
+/* -------------------------------------------------------------
+   5. SCROLL REVEAL ANIMATIONS
+   ------------------------------------------------------------- */
+const reveals = document.querySelectorAll('.reveal');
+const checkReveal = () => {
+  const triggerBottom = window.innerHeight * 0.88;
+  reveals.forEach((revealEl) => {
+    const revealTop = revealEl.getBoundingClientRect().top;
+    if (revealTop < triggerBottom) {
+      revealEl.classList.add('active');
+    }
+  });
+};
+window.addEventListener('scroll', checkReveal);
+window.addEventListener('load', checkReveal);
+
+/* -------------------------------------------------------------
+   6. SHOWCASE THUMBNAIL SELECTOR
+   ------------------------------------------------------------- */
+const showcaseMainImg = document.getElementById('showcaseMainImg');
+const thumbBtns = document.querySelectorAll('.thumb-btn');
+
+thumbBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    thumbBtns.forEach((b) => b.classList.remove('active'));
+    btn.classList.add('active');
+    const newSrc = btn.getAttribute('data-img');
+    if (showcaseMainImg && newSrc) {
+      showcaseMainImg.src = newSrc;
+    }
+  });
+});
+
+/* -------------------------------------------------------------
+   7. COCKPIT HUD & FLIGHT SIMULATOR LOGIC
+   ------------------------------------------------------------- */
+const thrustSlider = document.getElementById('thrustSlider');
+const thrustSliderVal = document.getElementById('thrustSliderVal');
+const hudThrustVal = document.getElementById('hudThrustVal');
+const hudThrustBar = document.getElementById('hudThrustBar');
+const hudSpeedVal = document.getElementById('hudSpeedVal');
+const hudSpeedBar = document.getElementById('hudSpeedBar');
+
+const altSlider = document.getElementById('altSlider');
+const altSliderVal = document.getElementById('altSliderVal');
+const hudAltVal = document.getElementById('hudAltVal');
+const hudAltBar = document.getElementById('hudAltBar');
+const hudTipText = document.getElementById('hudTipText');
+
+const flapsBtns = document.querySelectorAll('.flaps-btn');
+const flapsVal = document.getElementById('flapsVal');
+
+function updateHUD() {
+  const thrust = parseInt(thrustSlider?.value || 85);
+  const alt = parseInt(altSlider?.value || 39000);
+
+  // Update Thrust
+  if (thrustSliderVal) thrustSliderVal.textContent = `${thrust}% N1`;
+  if (hudThrustVal) hudThrustVal.textContent = `${thrust}% N1`;
+  if (hudThrustBar) hudThrustBar.style.width = `${thrust}%`;
+
+  // Compute realistic Airspeed (Mach 0.70 to Mach 0.88 depending on thrust & alt)
+  const mach = (0.65 + (thrust / 100) * 0.22).toFixed(2);
+  const kmh = Math.round(mach * 1062);
+  if (hudSpeedVal) hudSpeedVal.textContent = `Mach ${mach} (~ ${kmh} km/h)`;
+  if (hudSpeedBar) hudSpeedBar.style.width = `${Math.min(100, (mach / 0.9) * 100)}%`;
+
+  // Update Altitude
+  if (altSliderVal) altSliderVal.textContent = `${alt.toLocaleString()} ft`;
+  if (hudAltVal) hudAltVal.textContent = `${alt.toLocaleString()} FT (FL${Math.round(alt/100)})`;
+  if (hudAltBar) hudAltBar.style.width = `${(alt / 43000) * 100}%`;
+
+  // Dynamic Tips
+  if (hudTipText) {
+    if (alt >= 40000) {
+      hudTipText.innerHTML = `<strong>Tầng bình lưu cao:</strong> Ở độ cao ${alt.toLocaleString()} ft, không khí cực kỳ loãng giúp máy bay giảm tối đa lực cản và tăng tốc độ hành trình tiết kiệm nhiên liệu!`;
+    } else if (thrust >= 95) {
+      hudTipText.innerHTML = `<strong>Chế độ cất cánh TOGA:</strong> Động cơ GEnx-1B đạt lực đẩy tối đa 340 kN mỗi bên, đưa tàu bay 254 tấn cất cánh mạnh mẽ!`;
+    } else {
+      hudTipText.innerHTML = `Thân máy bay B787 làm từ composite cho phép duy trì áp suất cabin ở mức 6.000 ft (thay vì 8.000 ft như vỏ nhôm), giúp hành khách không bị mệt mỏi và say độ cao.`;
+    }
+  }
+}
+
+thrustSlider?.addEventListener('input', updateHUD);
+altSlider?.addEventListener('input', updateHUD);
+
+flapsBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    flapsBtns.forEach((b) => b.classList.remove('active'));
+    btn.classList.add('active');
+    const fVal = btn.getAttribute('data-flaps');
+    if (flapsVal) flapsVal.textContent = fVal;
+    showToast(`Cấu hình cánh tà: ${fVal}`);
+  });
+});
+
+/* -------------------------------------------------------------
+   8. QUICK 8-PARTS VIEWER MODAL & TABS
+   ------------------------------------------------------------- */
+const partsModalBackdrop = document.getElementById('partsModalBackdrop');
+const openPartsPreviewModalBtn = document.getElementById('openPartsPreviewModalBtn');
+const closePartsModalBtn = document.getElementById('closePartsModalBtn');
+const partsTabsRow = document.getElementById('partsTabsRow');
+const partsTabContent = document.getElementById('partsTabContent');
+
+const partsData = {
+  radome: {
+    title: '1. Mũi Máy Bay & Radar Thời Tiết (Radome)',
+    eng: 'Nose Cone & Weather Radar Antenna',
+    desc: 'Được chế tạo từ vật liệu composite thấm sóng vô tuyến đặc biệt, bảo vệ ăng-ten radar thời tiết Doppler đa tia quét mây giông cách xa tới 500 km.',
+    specs: 'Tần số: X-band | Vật liệu: Quartz-fiber composite | Góc quét: 180°'
+  },
+  pitot: {
+    title: '2. Cụm Ống Pitot & Cảm Biến Áp Suất Tĩnh',
+    eng: 'Pitot-Static Probes & Air Data Sensors',
+    desc: 'Hệ thống cảm biến đo áp suất toàn phần và góc tấn khí động, truyền dữ liệu thời gian thực tới 3 máy tính điều khiển bay Flight Management Computers.',
+    specs: 'Trang bị sưởi điện chống đóng băng tự động | Độ chính xác: 0.1 knot'
+  },
+  cockpit: {
+    title: '3. Buồng Lái Kỹ Thuật Số Glass Cockpit',
+    eng: 'Advanced Electronic Flight Deck',
+    desc: 'Trang bị 5 màn hình hiển thị LCD 15.1-inch siêu nét và 2 màn hình hiển thị trước kính lái (HUD - Head-Up Display) tiêu chuẩn cho cả Cơ trưởng và Cơ phó.',
+    specs: '5 Màn hình LCD 15.1 inch | Dual HUD | Hệ thống điều khiển Fly-by-wire số'
+  },
+  engines: {
+    title: '4. Động Cơ Phản Lực GEnx-1B',
+    eng: 'General Electric GEnx-1B High-Bypass Turbofan',
+    desc: 'Khối động cơ thế hệ mới với cánh quạt sợi carbon composite siêu nhẹ và viền răng cưa Chevrons ở đuôi giúp giảm tới 60% tiếng ồn cabin và tiết kiệm 20% nhiên liệu.',
+    specs: 'Lực đẩy: 340 kN (76.000 lbf) | Tỷ số vòng quạt: 9.6:1 | Đường kính quạt: 2.82m'
+  },
+  wings: {
+    title: '5. Cánh Khí Động & Đầu Cánh Vát (Raked Wingtip)',
+    eng: 'High-Aspect-Ratio Wings & Raked Wingtips',
+    desc: 'Cánh làm từ 100% sợi carbon uốn dẻo linh hoạt khi bay trong gió bão, đầu cánh vát chéo Raked Wingtip giúp triệt tiêu dòng xoáy lốc mà không cần winglet đứng.',
+    specs: 'Sải cánh: 60.1 m | Độ uốn cong tối đa: 3.5 m | Diện tích: 377 m²'
+  },
+  gear: {
+    title: '6. Cơ Cấu 3 Cụm Càng Đáp (Càng Trước & 2 Càng Sau)',
+    eng: 'Tricycle Gear (Nose Gear & Dual Main Bogies)',
+    image: 'images/b787_landing_gear_mechanism.png',
+    desc: 'Hệ thống càng đáp gồm 3 cụm: 1 Càng mũi trước (2 bánh dẫn hướng bẻ lái ±70°) và 2 Cụm càng chính sau (mỗi bên 4 bánh búp-bê nghiêng = 8 bánh). Khi thu càng, xi-lanh thủy lực kéo càng mũi về phía trước, 2 càng sau nghiêng góc búp-bê chúc xuống để gập gọn gàng vào hốc bụng, sau đó 2 cánh cửa khoang càng sẽ khép kín phẳng 0°.',
+    specs: 'Càng trước: 2 bánh | 2 Càng sau: 8 bánh (4 bánh/bên) | Phanh đĩa Carbon | Chống trượt ABS'
+  },
+  apu: {
+    title: '7. Động Cơ Phụ APU Đuôi (Auxiliary Power Unit)',
+    eng: 'Hamilton Sundstrand APS5000 Auxiliary Power Unit',
+    image: 'images/b787_apu_closeup.png',
+    desc: 'Máy phát điện turbine khí mini nằm ở đuôi máy bay, cung cấp điện 235V AC và hỗ trợ khởi động 2 động cơ chính khi máy bay đỗ tại sân bay.',
+    specs: 'Công suất điện: 2 x 225 kVA | Khởi động độc lập không cần xe nguồn mặt đất'
+  },
+  rudder: {
+    title: '8. Bánh Lái Đuôi & Đuôi Đứng (Vertical Stabilizer)',
+    eng: 'Vertical Stabilizer & Fly-By-Wire Rudder',
+    image: 'images/vietnam_airlines_b787_bg.png',
+    desc: 'Đuôi đứng bằng sợi carbon nguyên khối sơn biểu tượng Bông Sen Vàng Vietnam Airlines, kiểm soát độ ổn định hướng và chuyển hướng bằng thủy lực điện tử.',
+    specs: 'Chiều cao đuôi: 17.0 m | Điều khiển số hoàn toàn Fly-By-Wire'
+  }
+};
+
+function renderPartDetail(partKey) {
+  const data = partsData[partKey] || partsData.radome;
+  if (partsTabContent) {
+    const imgHtml = data.image ? `
+      <div style="width: 100%; height: 200px; border-radius: 12px; overflow: hidden; margin-bottom: 1rem; border: 1px solid var(--glass-border);">
+        <img src="${data.image}" alt="${data.title}" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+    ` : '';
+    partsTabContent.innerHTML = `
+      <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--glass-border); border-radius: 14px; padding: 1.5rem; margin-top: 1rem;">
+        ${imgHtml}
+        <span style="font-size: 0.75rem; color: #fbbf24; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">CHI TIẾT KỸ THUẬT</span>
+        <h4 style="font-family: var(--font-title); font-size: 1.35rem; color: white; margin: 0.3rem 0;">${data.title}</h4>
+        <p style="font-size: 0.85rem; color: #38bdf8; font-family: var(--font-mono); margin-bottom: 0.85rem;">${data.eng}</p>
+        <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">${data.desc}</p>
+        <div style="background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; padding: 0.75rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.85rem; color: #bae6fd;">
+          <strong>Thông số chính:</strong> ${data.specs}
+        </div>
+      </div>
+    `;
+  }
+}
+
+if (openPartsPreviewModalBtn) {
+  openPartsPreviewModalBtn.addEventListener('click', () => {
+    if (partsModalBackdrop) partsModalBackdrop.classList.add('show');
+    renderPartDetail('radome');
+  });
+}
+
+if (closePartsModalBtn) {
+  closePartsModalBtn.addEventListener('click', () => {
+    if (partsModalBackdrop) partsModalBackdrop.classList.remove('show');
+  });
+}
+
+if (partsModalBackdrop) {
+  partsModalBackdrop.addEventListener('click', (e) => {
+    if (e.target === partsModalBackdrop) {
+      partsModalBackdrop.classList.remove('show');
+    }
+  });
+}
+
+const partTabBtns = document.querySelectorAll('.part-tab-btn');
+partTabBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    partTabBtns.forEach((b) => b.classList.remove('active'));
+    btn.classList.add('active');
+    const partKey = btn.getAttribute('data-part');
+    renderPartDetail(partKey);
+  });
+});
+
+/* -------------------------------------------------------------
+   9. BOEING 787-9 & AVIATION QUIZ + CERTIFICATE GENERATOR
+   ------------------------------------------------------------- */
+const quizQuestions = [
+  {
+    question: "Vật liệu tiên tiến nào chiếm hơn 50% cấu trúc thân và cánh của Boeing 787-9 Dreamliner?",
+    options: [
+      "Nhôm hàng không truyền thống",
+      "Composite sợi carbon (Carbon-fiber)",
+      "Thép không gỉ gia cường",
+      "Hợp kim Titan nguyên khối"
+    ],
+    answerIndex: 1,
+    feedback: "🎉 Chính xác! Hơn 50% khung thân B787 làm từ sợi carbon composite, giúp máy bay nhẹ hơn, chống ăn mòn và tiết kiệm tới 20% nhiên liệu.",
+    image: "images/vietnam_airlines_b787_side_daylight.png"
+  },
+  {
+    question: "Dòng động cơ phản lực siêu tiết kiệm nhiên liệu thế hệ mới nào được Vietnam Airlines trang bị trên Boeing 787-9?",
+    options: [
+      "General Electric GEnx-1B",
+      "Pratt & Whitney PW4000",
+      "Rolls-Royce Trent 700",
+      "CFM International LEAP-1A"
+    ],
+    answerIndex: 0,
+    feedback: "🎉 Tuyệt vời! Động cơ GEnx-1B sở hữu cánh quạt sợi composite và răng cưa chevron ở đuôi giúp giảm tiếng ồn cabin tới 60%.",
+    image: "images/vietnam_airlines_b787_engine_closeup.png"
+  },
+  {
+    question: "Thiết kế đầu cánh đặc trưng nào của Boeing 787-9 giúp triệt tiêu dòng xoáy không khí mà không cần gắn winglet thẳng đứng?",
+    options: [
+      "Đầu cánh gập (Folding Wingtip)",
+      "Cánh cong Sharklet",
+      "Đầu cánh vát nghiêng (Raked Wingtip)",
+      "Đầu cánh chữ T đối xứng"
+    ],
+    answerIndex: 2,
+    feedback: "🎉 Hoàn toàn đúng! Đầu cánh vát Raked Wingtip tăng sải cánh hiệu dụng và giảm tối đa lực cản cảm ứng khi bay hành trình.",
+    image: "images/vietnam_airlines_b787_bg.png"
+  },
+  {
+    question: "Tính năng tiện nghi công nghệ nổi tiếng nào lần đầu tiên xuất hiện trên cửa sổ khoang khách của dòng Boeing 787?",
+    options: [
+      "Cửa sổ đổi màu điện tử (Electrochromic dimming)",
+      "Cửa sổ kính cường lực chống đạn",
+      "Màn hình cảm ứng tích hợp trên kính",
+      "Cửa sổ mở trượt thủ công cỡ lớn"
+    ],
+    answerIndex: 0,
+    feedback: "🎉 Chuẩn xác! Hành khách có thể chỉnh độ tối sáng của kính cửa sổ bằng nút bấm điện tử mà không cần kéo màn che cơ học.",
+    image: "images/vietnam_airlines_b787_tarmac.png"
+  },
+  {
+    question: "Tầm bay tối đa của dòng máy bay thân rộng Boeing 787-9 Dreamliner đạt khoảng bao nhiêu km?",
+    options: [
+      "Khoảng 7.500 km",
+      "Khoảng 10.200 km",
+      "Khoảng 14.140 km",
+      "Khoảng 20.000 km"
+    ],
+    answerIndex: 2,
+    feedback: "🎉 Xuất sắc! Với tầm bay 14.140 km, B787-9 của Vietnam Airlines có thể bay thẳng không dừng từ Hà Nội/TP.HCM tới Luân Đôn, Paris hoặc Sydney.",
+    image: "images/vietnam_airlines_b787_runway_night.png"
+  }
+];
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+const quizIntro = document.getElementById('quiz-intro');
+const quizContainer = document.getElementById('quiz-container');
+const quizResult = document.getElementById('quiz-result');
+const startQuizBtn = document.getElementById('start-quiz-btn');
+const restartQuizBtn = document.getElementById('restart-quiz-btn');
+const nextQuestionBtn = document.getElementById('next-question-btn');
+const questionText = document.getElementById('question-text');
+const optionsContainer = document.getElementById('options-container');
+const questionNumber = document.getElementById('question-number');
+const currentScoreTag = document.getElementById('current-score-tag');
+const progressBar = document.getElementById('progress-bar');
+const quizFeedbackText = document.getElementById('quiz-feedback');
+const quizQuestionImage = document.getElementById('quiz-question-image');
+const quizImageContainer = document.getElementById('quiz-image-container');
+const resultText = document.getElementById('result-text');
+const userNameForCert = document.getElementById('userNameForCert');
+const certCandidateName = document.getElementById('certCandidateName');
+const certScoreText = document.getElementById('certScoreText');
+const certDateDisplay = document.getElementById('certDateDisplay');
+const downloadCertBtn = document.getElementById('downloadCertBtn');
+
+if (startQuizBtn) {
+  startQuizBtn.addEventListener('click', startQuiz);
+}
+
+if (restartQuizBtn) {
+  restartQuizBtn.addEventListener('click', startQuiz);
+}
+
+if (nextQuestionBtn) {
+  nextQuestionBtn.addEventListener('click', () => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < quizQuestions.length) {
+      showQuestion();
+    } else {
+      showResult();
+    }
+  });
+}
+
+function startQuiz() {
+  currentQuestionIndex = 0;
+  score = 0;
+  if (quizIntro) quizIntro.style.display = 'none';
+  if (quizResult) quizResult.style.display = 'none';
+  if (quizContainer) quizContainer.style.display = 'block';
+  showQuestion();
+}
+
+function showQuestion() {
+  if (nextQuestionBtn) nextQuestionBtn.style.display = 'none';
+  if (quizFeedbackText) quizFeedbackText.style.display = 'none';
+
+  const currentQuestion = quizQuestions[currentQuestionIndex];
+  if (questionText) questionText.textContent = `${currentQuestionIndex + 1}. ${currentQuestion.question}`;
+
+  if (questionNumber) questionNumber.textContent = `Câu hỏi ${currentQuestionIndex + 1}/${quizQuestions.length}`;
+  if (currentScoreTag) currentScoreTag.textContent = `Điểm: ${score}/${quizQuestions.length}`;
+  if (progressBar) {
+    const progressPercent = (currentQuestionIndex / quizQuestions.length) * 100;
+    progressBar.style.width = `${progressPercent}%`;
+  }
+
+  if (currentQuestion.image && quizQuestionImage && quizImageContainer) {
+    quizQuestionImage.src = currentQuestion.image;
+    quizImageContainer.style.display = 'block';
+  } else if (quizImageContainer) {
+    quizImageContainer.style.display = 'none';
+  }
+
+  if (optionsContainer) {
+    optionsContainer.innerHTML = '';
+    currentQuestion.options.forEach((option, index) => {
+      const button = document.createElement('button');
+      button.classList.add('option-btn');
+      button.innerHTML = `<span style="display: inline-block; width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.1); text-align: center; line-height: 24px; margin-right: 8px; font-weight: 700; font-size: 0.8rem;">${String.fromCharCode(65 + index)}</span> ${option}`;
+      button.addEventListener('click', () => selectAnswer(index, button));
+      optionsContainer.appendChild(button);
+    });
+  }
+}
+
+function selectAnswer(selectedIndex, selectedButton) {
+  const currentQuestion = quizQuestions[currentQuestionIndex];
+  const buttons = optionsContainer.querySelectorAll('.option-btn');
+  buttons.forEach((btn) => (btn.disabled = true));
+
+  if (selectedIndex === currentQuestion.answerIndex) {
+    selectedButton.classList.add('correct');
+    score++;
+    if (quizFeedbackText) {
+      quizFeedbackText.innerHTML = currentQuestion.feedback;
+      quizFeedbackText.className = 'quiz-feedback';
+      quizFeedbackText.style.background = 'rgba(16, 185, 129, 0.15)';
+      quizFeedbackText.style.border = '1px solid #10b981';
+      quizFeedbackText.style.color = '#34d399';
+      quizFeedbackText.style.display = 'block';
+    }
+  } else {
+    selectedButton.classList.add('wrong');
+    buttons[currentQuestion.answerIndex].classList.add('correct');
+    if (quizFeedbackText) {
+      quizFeedbackText.innerHTML = `❌ Chưa chính xác! <strong>Đáp án đúng: ${currentQuestion.options[currentQuestion.answerIndex]}</strong>.<br>${currentQuestion.feedback}`;
+      quizFeedbackText.className = 'quiz-feedback';
+      quizFeedbackText.style.background = 'rgba(239, 68, 68, 0.15)';
+      quizFeedbackText.style.border = '1px solid #ef4444';
+      quizFeedbackText.style.color = '#f87171';
+      quizFeedbackText.style.display = 'block';
+    }
+  }
+
+  if (currentScoreTag) currentScoreTag.textContent = `Điểm: ${score}/${quizQuestions.length}`;
+  if (nextQuestionBtn) {
+    nextQuestionBtn.style.display = 'inline-flex';
+    nextQuestionBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+function showResult() {
+  if (progressBar) progressBar.style.width = '100%';
+  if (quizContainer) quizContainer.style.display = 'none';
+  if (quizResult) quizResult.style.display = 'block';
+
+  const candidateName = userNameForCert?.value?.trim() || 'HỌC VIÊN XUẤT SẮC';
+  if (certCandidateName) certCandidateName.textContent = candidateName.toUpperCase();
+  if (certScoreText) {
+    certScoreText.textContent = `Đã hoàn thành xuất sắc bài kiểm tra trắc nghiệm kiến thức tàu bay Boeing 787-9 Dreamliner với thành tích ${score}/${quizQuestions.length} điểm.`;
+  }
+  if (certDateDisplay) {
+    const today = new Date();
+    certDateDisplay.textContent = today.toISOString().split('T')[0];
+  }
+
+  let resultMessage = '';
+  if (score === quizQuestions.length) {
+    resultMessage = `Tuyệt đối! Bạn đạt <strong>${score}/${quizQuestions.length} điểm</strong>! Bạn thực sự là một "Chuyên Gia Kỹ Thuật Boeing 787-9" tài năng! ✈️`;
+  } else if (score >= 3) {
+    resultMessage = `Rất tốt! Bạn đạt <strong>${score}/${quizQuestions.length} điểm</strong>! Kiến thức hàng không của bạn vô cùng ấn tượng! 🛫`;
+  } else {
+    resultMessage = `Bạn đạt <strong>${score}/${quizQuestions.length} điểm</strong>! Hãy ghé thăm dự án B787-9 để bóc tách thêm nhiều linh kiện thú vị nhé! ✈️`;
+  }
+
+  if (resultText) resultText.innerHTML = resultMessage;
+}
+
+// Draw and download Certificate Canvas Image
+if (downloadCertBtn) {
+  downloadCertBtn.addEventListener('click', () => {
+    const candidateName = userNameForCert?.value?.trim() || 'HỌC VIÊN XUẤT SẮC';
+    const canvas = document.createElement('canvas');
+    canvas.width = 1000;
+    canvas.height = 650;
+    const ctx = canvas.getContext('2d');
+
+    // Background Gradient
+    const bgGrad = ctx.createLinearGradient(0, 0, 1000, 650);
+    bgGrad.addColorStop(0, '#070c18');
+    bgGrad.addColorStop(1, '#020408');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, 1000, 650);
+
+    // Gold Outer Border
+    ctx.strokeStyle = '#fbbf24';
+    ctx.lineWidth = 6;
+    ctx.strokeRect(30, 30, 940, 590);
+
+    // Inner Dashed Border
+    ctx.strokeStyle = 'rgba(251, 191, 36, 0.4)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(45, 45, 910, 560);
+
+    // Header text
+    ctx.fillStyle = '#fbbf24';
+    ctx.font = 'bold 18px "JetBrains Mono", monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('VIETNAM AIRLINES • B787-9 AEROSPACE ACADEMY', 500, 110);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 32px "Outfit", sans-serif';
+    ctx.fillText('CHỨNG NHẬN AM HIỂU KỸ THUẬT HÀNG KHÔNG', 500, 160);
+
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '16px "Inter", sans-serif';
+    ctx.fillText('Chứng nhận được trân trọng trao tặng cho:', 500, 220);
+
+    // Name
+    ctx.fillStyle = '#38bdf8';
+    ctx.font = 'bold 36px "Outfit", sans-serif';
+    ctx.fillText(candidateName.toUpperCase(), 500, 280);
+
+    // Score text
+    ctx.fillStyle = '#e2e8f0';
+    ctx.font = '18px "Inter", sans-serif';
+    ctx.fillText(`Đã hoàn thành bài thi trắc nghiệm Boeing 787-9 Dreamliner với điểm số: ${score}/${quizQuestions.length}`, 500, 340);
+
+    // Signatures
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '14px "Inter", sans-serif';
+    ctx.fillText('Tác giả Website', 250, 480);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 20px "Outfit", sans-serif';
+    ctx.fillText('Phúc Khánh', 250, 510);
+    ctx.fillStyle = '#fbbf24';
+    ctx.font = '14px "Inter", sans-serif';
+    ctx.fillText('THCS Linh Đàm', 250, 535);
+
+    // Verified Stamp
+    ctx.strokeStyle = '#10b981';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(500, 490, 45, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = '#10b981';
+    ctx.font = 'bold 14px "JetBrains Mono", monospace';
+    ctx.fillText('VERIFIED', 500, 495);
+
+    // Date
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '14px "Inter", sans-serif';
+    ctx.fillText('Hệ thống cấp', 750, 480);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 18px "JetBrains Mono", monospace';
+    ctx.fillText(new Date().toISOString().split('T')[0], 750, 510);
+    ctx.fillStyle = '#38bdf8';
+    ctx.font = '14px "Inter", sans-serif';
+    ctx.fillText('Simba Learning Platform', 750, 535);
+
+    // Download trigger
+    const link = document.createElement('a');
+    link.download = `Chung_Chi_B787_${candidateName.replace(/\s+/g, '_')}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+
+    showToast('Đã tải Chứng chỉ PNG thành công!', 'File ảnh đã được lưu về máy của bạn.');
+  });
+}
+
+/* -------------------------------------------------------------
+   10. SIMBA FAST SUBMISSION & PRODUCT THINKING EXPORTER
+   ------------------------------------------------------------- */
+const simbaSubmissionText = `=== BÀI TẬP: WEBSITE CÁ NHÂN (TÍCH HỢP DỰ ÁN B787-9 AIRCRAFT PARTS) ===
+Họ và tên học sinh: Phúc Khánh
+Trường: THCS Linh Đàm (Hà Nội)
+
+1. LINK WEBSITE & MÃ NGUỒN:
+- Website Cá Nhân: portfolio-website/index.html
+- Website Khám Phá B787-9: b787-9-vietnam-airlines/index.html
+
+2. CÂU TRẢ LỜI PRODUCT THINKING:
+- Mục tiêu sản phẩm: Tạo ra không gian số cá nhân trực quan, kết nối đam mê công nghệ hàng không và showcase dự án kỹ thuật B787-9 Aircraft Parts Explorer.
+- Đối tượng người xem: Thầy cô giáo chấm bài trên Simba, bạn bè cùng lớp, phụ huynh và cộng đồng người yêu hàng không.
+
+- Chi tiết 4 nội dung trọng tâm:
+  1. Em là ai: Phúc Khánh - Học sinh trường THCS Linh Đàm, người luôn tò mò học hỏi và say mê lập trình web tương tác trực quan.
+  2. Em thích điều gì: Nghiên cứu công nghệ tàu bay hiện đại Boeing 787-9 Dreamliner (vật liệu thân carbon composite 50%+, động cơ GEnx-1B siêu êm, cánh vát Raked Wingtip), lập trình Frontend và rèn luyện thể thao nâng cao sức khỏe.
+  3. Sản phẩm tự hào: "B787-9 Aircraft Parts Interactive Website" - Sơ đồ tương tác Hotspot 8 điểm bóc tách cấu tạo máy bay của Vietnam Airlines kèm hình minh họa vector và thông số kỹ thuật chuẩn.
+  4. Người xem tìm hiểu thêm ở đâu: Form liên hệ trực tiếp trên website, email pikalongchen@gmail.com, GitHub và kênh kết nối 2 chiều giữa 2 website.
+
+3. BẰNG CHỨNG KẾT QUẢ:
+- Đầy đủ mã nguồn HTML5/CSS3/JavaScript thuần, chạy mượt mà 100%.
+- Tích hợp buồng lái kỹ thuật số HUD Simulator, bộ đố vui trắc nghiệm kiến thức và xuất chứng chỉ phi công tự động.
+- Giao diện chuẩn Responsive đa thiết bị (PC, Tablet, Mobile).`;
+
+const quickSimbaBtn = document.getElementById('quickSimbaBtn');
+const simbaModalBackdrop = document.getElementById('simbaModalBackdrop');
+const closeSimbaModalBtn = document.getElementById('closeSimbaModalBtn');
+const closeSimbaModalBtn2 = document.getElementById('closeSimbaModalBtn2');
+const copySimbaContentBtn = document.getElementById('copySimbaContentBtn');
+const copyProductThinkingBtn = document.getElementById('copyProductThinkingBtn');
+const simbaCopyTextarea = document.getElementById('simbaCopyTextarea');
+
+function openSimbaModal() {
+  if (simbaCopyTextarea) simbaCopyTextarea.value = simbaSubmissionText;
+  if (simbaModalBackdrop) simbaModalBackdrop.classList.add('show');
+}
+
+if (quickSimbaBtn) quickSimbaBtn.addEventListener('click', openSimbaModal);
+if (closeSimbaModalBtn) closeSimbaModalBtn.addEventListener('click', () => simbaModalBackdrop?.classList.remove('show'));
+if (closeSimbaModalBtn2) closeSimbaModalBtn2.addEventListener('click', () => simbaModalBackdrop?.classList.remove('show'));
+
+if (copySimbaContentBtn) {
+  copySimbaContentBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(simbaSubmissionText).then(() => {
+      showToast('Đã sao chép toàn bộ bài nộp Simba!', 'Bạn có thể dán (Ctrl+V) trực tiếp vào ô nộp bài trên Simba.');
+    });
+  });
+}
+
+if (copyProductThinkingBtn) {
+  copyProductThinkingBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(simbaSubmissionText).then(() => {
+      showToast('Đã sao chép Câu trả lời Product Thinking!', 'Sẵn sàng nộp lên Simba.');
+    });
+  });
+}
+
+/* -------------------------------------------------------------
+   11. CONTACT FORM & TOAST NOTIFICATION
+   ------------------------------------------------------------- */
+const contactForm = document.getElementById('contactForm');
+const toast = document.getElementById('toast');
+const toastTitle = document.getElementById('toastTitle');
+const toastDesc = document.getElementById('toastDesc');
+
+function showToast(title, desc = 'Thao tác đã được thực hiện thành công.') {
+  if (toast && toastTitle && toastDesc) {
+    toastTitle.textContent = title;
+    toastDesc.textContent = desc;
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 4000);
+  }
+}
+
+if (contactForm) {
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name')?.value;
+    const email = document.getElementById('email')?.value;
+    const subject = document.getElementById('subject')?.value;
+    const message = document.getElementById('message')?.value;
+
+    console.log('📬 Nhận tin nhắn từ form:', { name, email, subject, message });
+    showToast(`Cảm ơn ${name}!`, 'Phúc Khánh đã nhận được lời nhắn và sẽ phản hồi sớm nhất.');
+    contactForm.reset();
+  });
+}
+
+</script>
+</body>
+</html>

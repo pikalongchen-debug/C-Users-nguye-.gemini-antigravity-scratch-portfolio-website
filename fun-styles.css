@@ -1,0 +1,166 @@
+/* Boeing 787 Dreamliner Fun Hub - Upgraded Game & Quiz Styles */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Orbitron:wght@600;800;900&display=swap');
+
+:root {
+  --vna-teal: #005f63;
+  --vna-teal-light: #008f95;
+  --vna-teal-dark: #003a3d;
+  --vna-gold: #e5a919;
+  --vna-gold-light: #fcd34d;
+  --font-fun: 'Fredoka', cursive, sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-tech: 'Orbitron', monospace, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: #0b1120;
+  color: #f8fafc;
+  overflow-x: hidden;
+}
+
+.font-fun {
+  font-family: var(--font-fun);
+}
+
+.font-tech {
+  font-family: var(--font-tech);
+}
+
+/* Custom Gradients */
+.bg-sky-gradient {
+  background: radial-gradient(circle at 50% 20%, #1e3a8a 0%, #0f172a 60%, #020617 100%);
+}
+
+.bg-fun-card {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bg-fun-card-glow {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(229, 169, 25, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(0, 95, 99, 0.5), 0 0 20px rgba(229, 169, 25, 0.15);
+}
+
+/* Floating & Bouncing Animations */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(229, 169, 25, 0.4); }
+  50% { box-shadow: 0 0 35px rgba(229, 169, 25, 0.8); }
+}
+
+@keyframes windBlow {
+  0% { transform: translateX(0) scaleY(1); opacity: 0.8; }
+  50% { transform: translateX(15px) scaleY(1.2); opacity: 0.3; }
+  100% { transform: translateX(30px) scaleY(0.8); opacity: 0; }
+}
+
+.animate-float {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s infinite;
+}
+
+.wind-line {
+  animation: windBlow 0.8s infinite linear;
+}
+
+/* Boarding Pass Ticket Styles */
+.boarding-pass {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  color: #0f172a;
+  position: relative;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 95, 99, 0.3);
+}
+
+.ticket-cutout-left, .ticket-cutout-right {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background-color: #0b1120;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.ticket-cutout-left { left: -14px; }
+.ticket-cutout-right { right: -14px; }
+
+/* Lucky Spin Wheel */
+.wheel-container {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  margin: 0 auto;
+}
+
+.wheel-canvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(229, 169, 25, 0.4), inset 0 0 20px rgba(0,0,0,0.5);
+  transition: transform 4s cubic-bezier(0.15, 0.95, 0.35, 1);
+}
+
+.wheel-pointer {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-top: 30px solid #ef4444;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+  z-index: 20;
+}
+
+/* Passenger Seat Recline */
+.seat-backrest {
+  transform-origin: bottom center;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.seat-recline-active {
+  transform: rotate(-22deg);
+}
+
+/* Electrochromic Smart Window */
+.dimmable-window {
+  transition: filter 0.6s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.6s ease;
+}
+
+/* Canvas styling */
+#game-canvas, #snack-canvas, #marshaller-canvas {
+  border-radius: 20px;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.3), 0 15px 35px rgba(0,0,0,0.6);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #090d16;
+}
+::-webkit-scrollbar-thumb {
+  background: #005f63;
+  border-radius: 5px;
+  border: 2px solid #090d16;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #e5a919;
+}
